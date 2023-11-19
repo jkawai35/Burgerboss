@@ -18,7 +18,14 @@ let config = {
         }
     },
     zoom: 2,
-    scene: []
+    scene: [Load, Title, Level_1, Level_2, Level_3, GameOver]
 }
 
+// define game
 const game = new Phaser.Game(config)
+
+// define globals
+let centerX = game.config.width / 2;
+let centerY = game.config.height / 2;
+let game_width = game.config.width;
+let game_height = game.config.height;
