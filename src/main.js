@@ -11,14 +11,14 @@ let config = {
     },
     width: 320,
     height: 240,
+    zoom: 2,
     physics: {
         default: "arcade",
         arcade: {
             debug: true
         }
     },
-    zoom: 2,
-    scene: [Load, Title, Level_1, Level_2, Level_3, GameOver]
+    scene: [ Load, Title, Level_1, Level_2, Level_3, GameOver ]
 }
 
 // define game
