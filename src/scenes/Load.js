@@ -3,7 +3,7 @@ class Load extends Phaser.Scene {
         super("loadScene");
     }
 
-    prelaod() {
+    preload() {
         this.load.image("brownBuilding", "./assets/BrownBuilding.png");
         this.load.image("blueBuilding", "./assets/BlueBuilding.png");
         this.load.image("greenBuilding", "./assets/GreenBuilding.png");
