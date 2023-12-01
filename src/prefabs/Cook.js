@@ -1,11 +1,12 @@
 class Cook extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y, texture, frame, direction){
+        super(scene, x, y, texture, frame);
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
         //set variables for cook
         this.direction = direction;
-        this.cookVelocity = 100;
+        this.cookVelocity = 250;
         this.hurtTimer = 250;
 
         //create state machine
@@ -37,10 +38,10 @@ class IdleState extends State {
         }
 
         // hurt state
-        if(Phaser.Input.Keyboard.JustDown(HKey)) {
+        /*if(Phaser.Input.Keyboard.JustDown(HKey)) {
             this.stateMachine.transition('hurt')
             return;
-        }
+        }*/
 
         // move depending on key pressed
         if(left.isDown || right.isDown || up.isDown) {
@@ -51,9 +52,9 @@ class IdleState extends State {
 }
 
 class MoveState extends State {
-    execute(scene, hero) {
+    execute(scene, cook) {
         // use destructuring to make a local copy of the keyboard object
-        const { left, right, up, down, space} = scene.keys
+        const { left, right, up, space} = scene.keys
 
         // transition to swing if pressing space
         if(Phaser.Input.Keyboard.JustDown(space)) {
@@ -62,10 +63,10 @@ class MoveState extends State {
         }
 
         // hurt state
-        if(Phaser.Input.Keyboard.JustDown(HKey)) {
+        /*if(Phaser.Input.Keyboard.JustDown(HKey)) {
             this.stateMachine.transition('hurt');
             return;
-        }
+        }*/
 
         // transition to idle if not pressing movement keys
         if(!(left.isDown || right.isDown || up.isDown)) {
@@ -78,9 +79,6 @@ class MoveState extends State {
         if(up.isDown) {
             moveDirection.y = -1;
             cook.direction = 'up';
-        } else if(down.isDown) {
-            moveDirection.y = 1;
-            cook.direction = 'down';
         }
         if(left.isDown) {
             moveDirection.x = -1;
@@ -89,17 +87,17 @@ class MoveState extends State {
             moveDirection.x = 1;
             cook.direction = 'right';
         }
-        // normalize movement vector, update hero position, and play proper animation
+        // normalize movement vector, update cook position, and play proper animation
         moveDirection.normalize();
-        hero.setVelocity(cook.cookVelocity * moveDirection.x, cook.cookVelocity * moveDirection.y);
-        hero.anims.play(`walk-${cook.direction}`, true);
+        cook.setVelocity(cook.cookVelocity * moveDirection.x, cook.cookVelocity * moveDirection.y);
+        cook.anims.play(`walk-${cook.direction}`, true);
     }
 }
 
 class SwingState extends State {
     enter(scene, cook) {
         cook.setVelocity(0);
-        cook.anims.play(`swing-${hero.direction}`);
+        cook.anims.play(`swing-${cook.direction}`);
         cook.once('animationcomplete', () => {
             this.stateMachine.transition('idle');
         })
@@ -109,22 +107,19 @@ class SwingState extends State {
 class HurtState extends State {
     enter(scene, cook) {
         cook.setVelocity(0);
-        cook.anims.play(`walk-${hero.direction}`);
+        cook.anims.play(`walk-${cook.direction}`);
         cook.anims.stop();
         cook.setTint(0xFF0000);
 
-        switch(hero.direction) {
+        switch(cook.direction) {
             case 'up':
-                cook.setVelocityY(hero.heroVelocity*2);
-                break;
-            case 'down':
-                cook.setVelocityY(-hero.heroVelocity*2);
+                cook.setVelocityY(cook.cookVelocity*2);
                 break;
             case 'left':
-                cook.setVelocityX(hero.heroVelocity*2);
+                cook.setVelocityX(cook.cookVelocity*2);
                 break;
             case 'right':
-                cook.setVelocityX(-hero.heroVelocity*2);
+                cook.setVelocityX(-cook.cookVelocity*2);
                 break;
         }
 

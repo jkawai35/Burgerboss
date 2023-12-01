@@ -18,6 +18,7 @@ class Load extends Phaser.Scene {
     }
 
     create() {
+        this.keys = this.input.keyboard.createCursorKeys()
         this.anims.create({
             key: 'walk-left',
             frameRate: 4,
