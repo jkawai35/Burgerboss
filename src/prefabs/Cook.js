@@ -6,13 +6,16 @@ class Cook extends Phaser.Physics.Arcade.Sprite{
 
         //set variables for cook
         this.direction = direction;
-        this.cookVelocity = 250;
+        this.cookVelocity = 150;
         this.hurtTimer = 250;
+        this.setGravityY(200);
+        this.setCollideWorldBounds(true);
 
         //create state machine
         scene.cookFSM = new StateMachine('idle', {
             idle: new IdleState(),
             move: new MoveState(),
+            jump: new JumpState(),
             swing: new SwingState(),
             hurt: new HurtState(),
         }, [scene, this])  
@@ -77,8 +80,7 @@ class MoveState extends State {
         // handle movement
         let moveDirection = new Phaser.Math.Vector2(0, 0)
         if(up.isDown) {
-            moveDirection.y = -1;
-            cook.direction = 'up';
+            this.stateMachine.transition('jump');
         }
         if(left.isDown) {
             moveDirection.x = -1;
@@ -91,6 +93,44 @@ class MoveState extends State {
         moveDirection.normalize();
         cook.setVelocity(cook.cookVelocity * moveDirection.x, cook.cookVelocity * moveDirection.y);
         cook.anims.play(`walk-${cook.direction}`, true);
+    }
+}
+
+class JumpState extends State {
+    execute(scene, cook) {
+        // use destructuring to make a local copy of the keyboard object
+        const { left, right, up, space} = scene.keys;
+
+        // transition to swing if pressing space
+        if(Phaser.Input.Keyboard.JustDown(space)) {
+            this.stateMachine.transition('swing');
+            return;
+        }
+
+        if(up.isDown){
+            moveDirection.y = -1;
+            cook.direction = 'up';
+        }
+        if(!(up.isDown)) {
+            if (left.isDown || right.isDown){
+                this.stateMachine.transition('move')
+            }
+        }
+        if(left.isDown) {
+            moveDirection.x = -1;
+            cook.direction = 'left';
+        } else if(right.isDown) {
+            moveDirection.x = 1;
+            cook.direction = 'right';
+        }
+        moveDirection.normalize();
+        cook.setVelocity(cook.cookVelocity * moveDirection.x, cook.cookVelocity * moveDirection.y);
+        cook.anims.play(`jump-${cook.direction}`);
+        // hurt state
+        /*if(Phaser.Input.Keyboard.JustDown(HKey)) {
+            this.stateMachine.transition('hurt')
+            return;
+        }*/
     }
 }
 

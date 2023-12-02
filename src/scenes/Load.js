@@ -21,13 +21,13 @@ class Load extends Phaser.Scene {
         this.keys = this.input.keyboard.createCursorKeys()
         this.anims.create({
             key: 'walk-left',
-            frameRate: 4,
+            frameRate: 8,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('cook', { start: 2, end: 3 }),
         })
         this.anims.create({
             key: 'walk-right',
-            frameRate: 4,
+            frameRate: 8,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('cook', { start: 0, end: 1 }),
         })
@@ -42,6 +42,18 @@ class Load extends Phaser.Scene {
             frameRate: 4,
             repeat: 0,
             frames: this.anims.generateFrameNumbers('cook', { start: 5, end: 5 }),
+        })
+        this.anims.create({
+            key: 'jump-left',
+            frameRate: 1,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('cook', { start: 0, end: 0 }),
+        })
+        this.anims.create({
+            key: 'jump-right',
+            frameRate: 1,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('cook', { start: 3, end: 3 }),
         })
 
         this.scene.start('titleScene');
