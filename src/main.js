@@ -30,4 +30,6 @@ let centerY = game.config.height / 2;
 let game_width = game.config.width;
 let game_height = game.config.height;
 
+let moveDirection = new Phaser.Math.Vector2(0, 0)
+
 let keyS;

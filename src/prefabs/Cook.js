@@ -78,7 +78,7 @@ class MoveState extends State {
         }
 
         // handle movement
-        let moveDirection = new Phaser.Math.Vector2(0, 0)
+        // let moveDirection = new Phaser.Math.Vector2(0, 0)
         if(up.isDown) {
             this.stateMachine.transition('jump');
         }
