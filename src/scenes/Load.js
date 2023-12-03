@@ -47,13 +47,13 @@ class Load extends Phaser.Scene {
             key: 'jump-left',
             frameRate: 1,
             repeat: -1,
-            frames: this.anims.generateFrameNumbers('cook', { start: 0, end: 0 }),
+            frames: this.anims.generateFrameNumbers('cook', { start: 3, end: 3 }),
         })
         this.anims.create({
             key: 'jump-right',
             frameRate: 1,
             repeat: -1,
-            frames: this.anims.generateFrameNumbers('cook', { start: 3, end: 3 }),
+            frames: this.anims.generateFrameNumbers('cook', { start: 1, end: 1 }),
         })
 
         this.scene.start('titleScene');

@@ -27,8 +27,14 @@ class IdleState extends State {
     enter(scene, cook) {
         console.log("IDLE STATE")
 
-        cook.anims.play(`walk-${cook.direction}`);
-        cook.anims.stop();
+        if (jumpBoolean == 0) {
+            cook.anims.play(`jump-${cook.direction}`);
+            cook.anims.stop();
+        }
+        else {
+            cook.anims.play(`walk-${cook.direction}`, true);
+            cook.anims.stop();
+        }
     }
 
     execute(scene, cook) {
@@ -53,6 +59,8 @@ class IdleState extends State {
             this.stateMachine.transition('move')
             return;
         }
+        cook.anims.play(`walk-${cook.direction}`, true);
+            cook.anims.stop();
         cook.setVelocityX(0)
     }
 }
@@ -99,9 +107,15 @@ class MoveState extends State {
             moveDirection.x = 0
         }
         // normalize movement vector, update cook position, and play proper animation
-        moveDirection.normalize();
+        // moveDirection.normalize();
         cook.setVelocityX(cook.cookVelocity * moveDirection.x);
-        cook.anims.play(`walk-${cook.direction}`, true);
+        if (jumpBoolean == 0) {
+            cook.anims.play(`jump-${cook.direction}`);
+            cook.anims.stop();
+        }
+        else {
+            cook.anims.play(`walk-${cook.direction}`, true);
+        }
     }
 }
 
@@ -137,6 +151,7 @@ class JumpState extends State {
         else {
             moveDirection.x = 0
         }
+        // moveDirection.normalize();
         cook.setVelocity(cook.cookVelocity * moveDirection.x, cook.cookVelocity * moveDirection.y);
         cook.anims.play(`jump-${cook.direction}`);
         // hurt state
