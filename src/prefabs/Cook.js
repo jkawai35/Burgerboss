@@ -8,7 +8,7 @@ class Cook extends Phaser.Physics.Arcade.Sprite{
         this.direction = direction;
         this.cookVelocity = 150;
         this.hurtTimer = 250;
-        this.setGravityY(500);
+        this.setGravityY(750);
         this.setCollideWorldBounds(true);
 
         //create state machine
@@ -25,7 +25,7 @@ class Cook extends Phaser.Physics.Arcade.Sprite{
 
 class IdleState extends State {
     enter(scene, cook) {
-        console.log("IDLE STATE")
+        // console.log("IDLE STATE")
 
         if (jumpBoolean == 0) {
             cook.anims.play(`jump-${cook.direction}`);
@@ -38,7 +38,7 @@ class IdleState extends State {
     }
 
     execute(scene, cook) {
-        console.log("IDLE STATE 2")
+        // console.log("IDLE STATE 2")
         // use destructuring to make a local copy of the keyboard object
         const { left, right, up, space} = scene.keys;
 
@@ -67,7 +67,7 @@ class IdleState extends State {
 
 class MoveState extends State {
     execute(scene, cook) {
-        console.log("MOVE STATE")
+        // console.log("MOVE STATE")
         moveDirection.y = 0
         // use destructuring to make a local copy of the keyboard object
         const { left, right, up, space} = scene.keys
@@ -121,7 +121,7 @@ class MoveState extends State {
 
 class JumpState extends State {
     execute(scene, cook) {
-        console.log("JUMP STATE")
+        // console.log("JUMP STATE")
         // use destructuring to make a local copy of the keyboard object
         const { left, right, up, space} = scene.keys;
 
