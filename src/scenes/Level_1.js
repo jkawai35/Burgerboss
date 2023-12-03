@@ -35,14 +35,16 @@ class Level_1 extends Phaser.Scene {
         this.building5 = this.physics.add.sprite(500, game_height - 50, "brownBuilding")
         this.building5.body.setImmovable(true);
 
-        this.buildings = this.add.group([this.building1, this.building2, this.building3,
+        buildings = this.add.group([this.building1, this.building2, this.building3,
         this.building4, this.building5]);
 
         //add colliders
-        this.physics.add.collider(this.cook, this.buildings);
-
+        this.physics.add.collider(this.cook, buildings, (cook, buildings) => {
+            jumpBoolean = 1
+        })
     }
     update() {
         this.cookFSM.step();
+        console.log(jumpBoolean)
     }
 }

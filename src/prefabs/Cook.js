@@ -8,7 +8,7 @@ class Cook extends Phaser.Physics.Arcade.Sprite{
         this.direction = direction;
         this.cookVelocity = 150;
         this.hurtTimer = 250;
-        this.setGravityY(200);
+        this.setGravityY(500);
         this.setCollideWorldBounds(true);
 
         //create state machine
@@ -25,12 +25,14 @@ class Cook extends Phaser.Physics.Arcade.Sprite{
 
 class IdleState extends State {
     enter(scene, cook) {
-        cook.setVelocity(0);
+        console.log("IDLE STATE")
+
         cook.anims.play(`walk-${cook.direction}`);
         cook.anims.stop();
     }
 
     execute(scene, cook) {
+        console.log("IDLE STATE 2")
         // use destructuring to make a local copy of the keyboard object
         const { left, right, up, space} = scene.keys;
 
@@ -47,15 +49,18 @@ class IdleState extends State {
         }*/
 
         // move depending on key pressed
-        if(left.isDown || right.isDown || up.isDown) {
+        if(left.isDown || right.isDown || (up.isDown && jumpBoolean == 1)) {
             this.stateMachine.transition('move')
             return;
         }
+        cook.setVelocityX(0)
     }
 }
 
 class MoveState extends State {
     execute(scene, cook) {
+        console.log("MOVE STATE")
+        moveDirection.y = 0
         // use destructuring to make a local copy of the keyboard object
         const { left, right, up, space} = scene.keys
 
@@ -72,14 +77,15 @@ class MoveState extends State {
         }*/
 
         // transition to idle if not pressing movement keys
-        if(!(left.isDown || right.isDown || up.isDown)) {
+        if(!(left.isDown || right.isDown || (up.isDown && jumpBoolean == 1))) {
             this.stateMachine.transition('idle');
             return;
         }
 
         // handle movement
         // let moveDirection = new Phaser.Math.Vector2(0, 0)
-        if(up.isDown) {
+        if(up.isDown && jumpBoolean == 1) {
+            moveDirection.y = -1;
             this.stateMachine.transition('jump');
         }
         if(left.isDown) {
@@ -89,15 +95,19 @@ class MoveState extends State {
             moveDirection.x = 1;
             cook.direction = 'right';
         }
+        else {
+            moveDirection.x = 0
+        }
         // normalize movement vector, update cook position, and play proper animation
         moveDirection.normalize();
-        cook.setVelocity(cook.cookVelocity * moveDirection.x, cook.cookVelocity * moveDirection.y);
+        cook.setVelocityX(cook.cookVelocity * moveDirection.x);
         cook.anims.play(`walk-${cook.direction}`, true);
     }
 }
 
 class JumpState extends State {
     execute(scene, cook) {
+        console.log("JUMP STATE")
         // use destructuring to make a local copy of the keyboard object
         const { left, right, up, space} = scene.keys;
 
@@ -107,23 +117,26 @@ class JumpState extends State {
             return;
         }
 
-        if(up.isDown){
+        /*if(up.isDown){
             moveDirection.y = -1;
             cook.direction = 'up';
-        }
-        if(!(up.isDown)) {
-            if (left.isDown || right.isDown){
-                this.stateMachine.transition('move')
-            }
+        }*/
+        if(up.isDown && jumpBoolean == 1) {
+            scene.time.delayedCall(250, () => {
+                this.stateMachine.transition('idle')
+                jumpBoolean = 0
+            }, null, scene);
         }
         if(left.isDown) {
             moveDirection.x = -1;
             cook.direction = 'left';
         } else if(right.isDown) {
-            moveDirection.x = 1;
+            moveDirection.x = 1;    
             cook.direction = 'right';
         }
-        moveDirection.normalize();
+        else {
+            moveDirection.x = 0
+        }
         cook.setVelocity(cook.cookVelocity * moveDirection.x, cook.cookVelocity * moveDirection.y);
         cook.anims.play(`jump-${cook.direction}`);
         // hurt state
