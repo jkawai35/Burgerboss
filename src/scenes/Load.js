@@ -6,6 +6,9 @@ class Load extends Phaser.Scene {
     preload() {
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 
+        this.load.audio('sfx_music', './assets/main_music.wav');
+        this.load.audio('LaserTinyShot', './assets/LaserTinyShot.wav');
+
         this.load.image("brownBuilding", "./assets/BrownBuilding.png");
         this.load.image("blueBuilding", "./assets/BlueBuilding.png");
         this.load.image("greenBuilding", "./assets/GreenBuilding.png");

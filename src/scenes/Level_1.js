@@ -9,6 +9,10 @@ class Level_1 extends Phaser.Scene {
         this.scene.bringToTop('UI');
         this.background = this.add.tileSprite(0,0,1250,480, "background").setOrigin(0,0);
 
+        // MUSIC
+        this.soundtrack = this.sound.add('sfx_music', {loop: true, volume: 20});
+        this.soundtrack.play('');
+
         //create cook
         this.cook = new Cook(this, 40, 80, 'cook', 0, 1);
         this.cook.body.setSize(20, 30);
@@ -86,6 +90,7 @@ class Level_1 extends Phaser.Scene {
         this.physics.add.collider(this.mustard1, buildings);
 
         this.physics.add.collider(this.cook, enemies, (cook, enemies) => {
+            this.soundtrack.stop();
             this.scene.restart();
             lives -= 1;
         })
@@ -102,10 +107,14 @@ class Level_1 extends Phaser.Scene {
         } 
         if (Phaser.Input.Keyboard.JustDown(keyESC)){
             this.scene.sendToBack("UI");
+            this.soundtrack.stop();
+
             this.scene.start("titleScene");
         }
         if (lives <= 0) {
             this.scene.sendToBack("UI");
+            this.soundtrack.stop();
+
             this.scene.start("gameOver");
         }
               
