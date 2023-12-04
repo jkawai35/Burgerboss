@@ -1,11 +1,11 @@
 class Cook extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene, x, y, texture, frame, direction){
+    constructor(scene, x, y, texture, frame){
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
         //set variables for cook
-        this.direction = direction;
+        this.direction = 'right';
         this.cookVelocity = 150;
         this.hurtTimer = 250;
         this.setGravityY(750);
@@ -156,7 +156,7 @@ class JumpState extends State {
             moveDirection.x = 0
         }
         // moveDirection.normalize();
-        cook.setVelocity(cook.cookVelocity * moveDirection.x, cook.cookVelocity * moveDirection.y);
+        cook.setVelocity(cook.cookVelocity * moveDirection.x, 175 * moveDirection.y);
         cook.anims.play(`jump-${cook.direction}`);
         // hurt state
         /*if(Phaser.Input.Keyboard.JustDown(HKey)) {

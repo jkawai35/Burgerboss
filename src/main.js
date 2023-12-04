@@ -16,7 +16,7 @@ let config = {
     physics: {
         default: "arcade",
         arcade: {
-            debug: false
+            debug: true
         }
     },
     scene: [ Load, Title, UI, Level_1, Level_2, Level_3, GameOver ]
@@ -44,13 +44,15 @@ let centerY = game.config.height / 2;
 let game_width = game.config.width;
 let game_height = game.config.height;
 
-let buildings
-let jumpBoolean = 1
+let buildings;
+let enemies;
+let jumpBoolean = 1;
 
 let moveDirection = new Phaser.Math.Vector2(0, 0)
+let mustardMD = new Phaser.Math.Vector2(0, 0)
 
-let keyS
-let keyESC
+let keyS;
+let keyESC;
 
 let score = 0;
 let lives = 3;

@@ -16,6 +16,10 @@ class Title extends Phaser.Scene {
             fontFamily: 'Press Start 2P, Papyrus',
             fontSize: '48px'
         })
+        this.add.text(game_width / 3.1, game_height / 1.5, 'Collect all tomatoes to win', {
+            fontFamily: 'Press Start 2P, Papyrus',
+            fontSize: '48px'
+        })
     }
 
     update() {

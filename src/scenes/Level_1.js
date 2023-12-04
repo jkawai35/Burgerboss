@@ -8,8 +8,17 @@ class Level_1 extends Phaser.Scene {
         this.scene.launch('UI');
         this.scene.bringToTop('UI');
         this.background = this.add.tileSprite(0,0,1250,480, "background").setOrigin(0,0);
+
+        //create cook
         this.cook = new Cook(this, 40, 80, 'cook', 0, 1);
         this.cook.body.setSize(20, 30);
+
+        //create mustard1
+        this.mustard1 = new Mustard(this, 400, game_width / 2, 'mustard', 0);
+        this.mustard1.body.setSize(15, 30);
+        enemies = this.add.group([this.mustard1]);
+
+        //define keys
         this.keys = this.input.keyboard.createCursorKeys();
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
@@ -58,10 +67,29 @@ class Level_1 extends Phaser.Scene {
         buildings = this.add.group([this.building1, this.building2, this.building3,
         this.building4, this.building5, this.building6, this.building7, this.building8]);
 
+        this.tomato1 = this.physics.add.sprite(400, game_height / 2, "tomato");
+        this.physics.add.collider(this.cook, this.tomato1, (cook, tomato1) => {
+            this.tomato1.destroy();
+            score += 10;
+        })
+
+        this.tomato2 = this.physics.add.sprite(630, game_height / 3, "tomato");
+        this.physics.add.collider(this.cook, this.tomato2, (cook, tomato2) => {
+            this.tomato2.destroy();
+            score += 10;
+        })
+
         //add colliders
         this.physics.add.collider(this.cook, buildings, (cook, buildings) => {
             jumpBoolean = 1
         })
+        this.physics.add.collider(this.mustard1, buildings);
+
+        this.physics.add.collider(this.cook, enemies, (cook, enemies) => {
+            this.scene.restart();
+            lives -= 1;
+        })
+
         this.ESCisDown = 0
         this.ESCText = 0
     }
@@ -73,11 +101,11 @@ class Level_1 extends Phaser.Scene {
             lives -= 1;
         } 
         if (Phaser.Input.Keyboard.JustDown(keyESC)){
-            this.scene.sendToBack("UI")
+            this.scene.sendToBack("UI");
             this.scene.start("titleScene");
         }
         if (lives <= 0) {
-            this.scene.sendToBack("UI")
+            this.scene.sendToBack("UI");
             this.scene.start("gameOver");
         }
               
