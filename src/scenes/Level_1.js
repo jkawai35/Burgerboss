@@ -5,14 +5,17 @@ class Level_1 extends Phaser.Scene {
 
     create() {
         console.log("LEVEL1")
+        this.scene.launch('UI');
+        this.scene.bringToTop('UI');
         this.background = this.add.tileSprite(0,0,1250,480, "background").setOrigin(0,0);
         this.cook = new Cook(this, 40, 80, 'cook', 0, 1);
         this.cook.body.setSize(20, 30);
         this.keys = this.input.keyboard.createCursorKeys();
 
-        this.cameras.main.setBounds(0, 0, 1000, this.background.heightInPixels)
+
+        this.cameras.main.setBounds(0, 0, 1000, 240)
         this.cameras.main.startFollow(this.cook, true, 0.25, 0)
-        this.physics.world.setBounds(0, 0, 1000, this.background.heightInPixels)
+        this.physics.world.setBounds(0, 0, 1000, 240, true, true, true, true);
 
         //set builidng1 
         this.building1 = this.physics.add.sprite(40, game_height - 50, "brownBuilding");
@@ -62,5 +65,10 @@ class Level_1 extends Phaser.Scene {
     update() {
         this.cookFSM.step();
         console.log(jumpBoolean)
+
+        if (this.cook.y > 210) {
+            this.scene.restart();
+            lives -= 1;
+        }        
     }
 }

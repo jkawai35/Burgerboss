@@ -4,6 +4,8 @@ class Load extends Phaser.Scene {
     }
 
     preload() {
+        this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+
         this.load.image("brownBuilding", "./assets/BrownBuilding.png");
         this.load.image("blueBuilding", "./assets/BlueBuilding.png");
         this.load.image("greenBuilding", "./assets/GreenBuilding.png");
@@ -13,8 +15,6 @@ class Load extends Phaser.Scene {
             frameHeight: 30,
         });
         this.load.image("background", "./assets/Background.png");
-
-
     }
 
     create() {
@@ -56,6 +56,14 @@ class Load extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('cook', { start: 1, end: 1 }),
         })
 
+        window.WebFont.load({
+            google: {
+                families: ['Press Start 2P']
+            },
+            active: function() {
+                console.log('Web fonts loaded');
+            }
+        });
         this.scene.start('titleScene');
     }
 }

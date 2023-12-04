@@ -2,7 +2,8 @@
 // Bob's Burgers - Season 2, Episode 4
 // Jaren Kawai, Jay Kumar
 // Time to complete:
-// Sources used: 
+// Sources used:
+// Running scenes in parallel: https://phaser.discourse.group/t/problem-with-two-parallel-scenes/7578
 
 let config = {
     type: Phaser.AUTO,
@@ -18,7 +19,20 @@ let config = {
             debug: false
         }
     },
-    scene: [ Load, Title, Level_1, Level_2, Level_3, GameOver ]
+    scene: [ Load, Title, UI, Level_1, Level_2, Level_3, GameOver ]
+}
+
+let scoreConfig = {
+    fontFamily: 'Press Start 2P, Courier',
+    fontSize: '20px',
+    backgroundColor: '#F3B141',
+    color: '#000000',
+    align: 'right',
+    padding: {
+        top: 5,
+        bottom: 5,
+    },
+    fixedWidth: 50
 }
 
 // define game
@@ -36,3 +50,6 @@ let jumpBoolean = 1
 let moveDirection = new Phaser.Math.Vector2(0, 0)
 
 let keyS;
+
+let score = 0;
+let lives = 3;
