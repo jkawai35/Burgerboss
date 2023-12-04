@@ -49,7 +49,8 @@ let jumpBoolean = 1
 
 let moveDirection = new Phaser.Math.Vector2(0, 0)
 
-let keyS;
+let keyS
+let keyESC
 
 let score = 0;
 let lives = 3;

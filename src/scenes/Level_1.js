@@ -11,6 +11,7 @@ class Level_1 extends Phaser.Scene {
         this.cook = new Cook(this, 40, 80, 'cook', 0, 1);
         this.cook.body.setSize(20, 30);
         this.keys = this.input.keyboard.createCursorKeys();
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
 
         this.cameras.main.setBounds(0, 0, 1000, 240)
@@ -61,14 +62,24 @@ class Level_1 extends Phaser.Scene {
         this.physics.add.collider(this.cook, buildings, (cook, buildings) => {
             jumpBoolean = 1
         })
+        this.ESCisDown = 0
+        this.ESCText = 0
     }
     update() {
         this.cookFSM.step();
-        console.log(jumpBoolean)
 
         if (this.cook.y > 210) {
             this.scene.restart();
             lives -= 1;
-        }        
+        } 
+        if (Phaser.Input.Keyboard.JustDown(keyESC)){
+            this.scene.sendToBack("UI")
+            this.scene.start("titleScene");
+        }
+        if (lives <= 0) {
+            this.scene.sendToBack("UI")
+            this.scene.start("gameOver");
+        }
+              
     }
 }

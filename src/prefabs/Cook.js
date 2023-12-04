@@ -43,7 +43,7 @@ class IdleState extends State {
         const { left, right, up, space} = scene.keys;
 
         // transition to swing if pressing space
-        if(Phaser.Input.Keyboard.JustDown(space)) {
+        if(space.isDown) {
             this.stateMachine.transition('swing');
             return;
         }
@@ -55,12 +55,16 @@ class IdleState extends State {
         }*/
 
         // move depending on key pressed
-        if(left.isDown || right.isDown || (up.isDown && jumpBoolean == 1)) {
+        if(left.isDown || right.isDown) {
             this.stateMachine.transition('move')
             return;
         }
+        if (up.isDown && jumpBoolean == 1) {
+            this.stateMachine.transition('jump')
+            return;
+        }
         cook.anims.play(`walk-${cook.direction}`, true);
-            cook.anims.stop();
+        cook.anims.stop();
         cook.setVelocityX(0)
     }
 }
@@ -94,6 +98,7 @@ class MoveState extends State {
         // let moveDirection = new Phaser.Math.Vector2(0, 0)
         if(up.isDown && jumpBoolean == 1) {
             moveDirection.y = -1;
+            jumpBoolean = 0
             this.stateMachine.transition('jump');
         }
         if(left.isDown) {
@@ -135,12 +140,11 @@ class JumpState extends State {
             moveDirection.y = -1;
             cook.direction = 'up';
         }*/
-        if(up.isDown && jumpBoolean == 1) {
-            scene.time.delayedCall(250, () => {
-                this.stateMachine.transition('idle')
-                jumpBoolean = 0
-            }, null, scene);
-        }
+
+        scene.time.delayedCall(250, () => {
+            this.stateMachine.transition('idle')
+            jumpBoolean = 0
+        }, null, scene);
         if(left.isDown) {
             moveDirection.x = -1;
             cook.direction = 'left';
@@ -164,10 +168,13 @@ class JumpState extends State {
 
 class SwingState extends State {
     enter(scene, cook) {
-        cook.setVelocity(0);
+        const { left, right, up, space} = scene.keys;
+        if (jumpBoolean == 1 || !up.isDown) {
+            cook.setVelocityX(0)
+        }
         cook.anims.play(`swing-${cook.direction}`);
         cook.once('animationcomplete', () => {
-            this.stateMachine.transition('idle');
+            this.stateMachine.transition('move');
         })
     }
 }
