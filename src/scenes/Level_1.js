@@ -18,7 +18,7 @@ class Level_1 extends Phaser.Scene {
         this.cook.body.setSize(20, 30);
 
         //create mustard1
-        this.mustard1 = new Mustard(this, 400, game_width / 2, 'mustard', 0);
+        this.mustard1 = new Mustard(this, 375, game_width / 2, 'mustard', 0);
         this.mustard1.body.setSize(15, 30);
         enemies = this.add.group([this.mustard1]);
 
@@ -100,6 +100,7 @@ class Level_1 extends Phaser.Scene {
     }
     update() {
         this.cookFSM.step();
+        this.mustardFSM.step();
 
         if (this.cook.y > 210) {
             this.scene.restart();
