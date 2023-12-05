@@ -169,12 +169,13 @@ class JumpState extends State {
 class SwingState extends State {
     enter(scene, cook) {
         const { left, right, up, space} = scene.keys;
-        if (jumpBoolean == 1 && !up.isDown) {
-            cook.setVelocityX(0)
-        }
+        swingBoolean = 1
         cook.anims.play(`swing-${cook.direction}`);
         cook.once('animationcomplete', () => {
-            this.stateMachine.transition('move');
+            scene.time.delayedCall(250, () => {
+                this.stateMachine.transition('move');
+                swingBoolean = 0
+            }, null, scene);
         })
     }
 }

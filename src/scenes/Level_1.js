@@ -89,11 +89,10 @@ class Level_1 extends Phaser.Scene {
         })
         this.physics.add.collider(this.mustard1, buildings);
 
+
+        this.KillsWho = 0
         this.physics.add.collider(this.cook, enemies, (cook, enemies) => {
-            this.soundtrack.stop();
-            this.scene.restart();
-            totalMoved = 0;
-            lives -= 1;
+            this.KillsWho = 1
         })
 
         this.ESCisDown = 0
@@ -102,6 +101,21 @@ class Level_1 extends Phaser.Scene {
     update() {
         this.cookFSM.step();
         this.mustardFSM.step();
+        if (this.KillsWho == 1) {
+            if (swingBoolean == 1) {
+                this.mustard1.setVisible(false)
+                this.mustard1.setPosition(585, 0)
+                score += 10;
+                swingBoolean == 0
+            }
+            else {
+                this.soundtrack.stop();
+                this.scene.restart();
+                totalMoved = 0;
+                lives -= 1;
+            }
+        }
+        this.KillsWho = 0
 
         if (this.cook.y > 210) {
             this.soundtrack.stop();

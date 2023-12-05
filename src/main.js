@@ -46,7 +46,9 @@ let game_height = game.config.height;
 
 let buildings;
 let enemies;
+
 let jumpBoolean = 1;
+let swingBoolean = 0
 
 let totalMoved = 0
 
