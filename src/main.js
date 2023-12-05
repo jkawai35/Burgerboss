@@ -19,7 +19,7 @@ let config = {
             debug: false
         }
     },
-    scene: [ Load, Title, UI, Level_1, Level_2, Level_3, GameOver, Win ]
+    scene: [ Load, Title, Instructions, UI, Level_1, Level_2, Level_3, GameOver, Win, HighScore ]
 }
 
 let scoreConfig = {
@@ -75,6 +75,8 @@ let mustardMD = new Phaser.Math.Vector2(0, 0)
 
 let keyS;
 let keyESC;
+let keyENTER;
+let keyC;
 
 let score = 0;
 let lives = 3;

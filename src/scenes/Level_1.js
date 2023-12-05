@@ -119,7 +119,7 @@ class Level_1 extends Phaser.Scene {
             lives -= 1;
         } 
         if (Phaser.Input.Keyboard.JustDown(keyESC)){
-            this.scene.sendToBack("UI");
+            this.scene.stop("UI");
             this.scene.start("titleScene");
         }
         if (lives <= 0) {

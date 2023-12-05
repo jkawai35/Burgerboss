@@ -4,7 +4,9 @@ class Title extends Phaser.Scene {
     }
 
     create() {
+        keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+
         this.keys = this.input.keyboard.createCursorKeys();
 
         this.add.text(game_width / 5.5, game_height / 3.5, 'BURGERBOSS', {
@@ -38,6 +40,9 @@ class Title extends Phaser.Scene {
             lives = 3
             score = 0
             this.scene.start("level1");
+        }
+        if (Phaser.Input.Keyboard.JustDown(keyC)){
+            this.scene.start("Instructions");
         }
     }
 }

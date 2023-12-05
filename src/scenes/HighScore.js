@@ -1,14 +1,14 @@
-class Win extends Phaser.Scene {
+class HighScore extends Phaser.Scene {
     constructor() {
-        super("win");
+        super("HighScore");
     }
 
     create() {
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-        this.background = this.add.tileSprite(0,0,640,480, "background").setOrigin(0,0);
-        this.add.text(game_width / 7, game_height / 2.1, 'YOU WIN', {
+        this.add.text(game_width / 7, game_height / 2.1, 'HIGH SCORE', {
             fontFamily: '"Press Start 2P", Papyrus',
-            fontSize: '32px'
+            fontSize: '20px',
+            color: 'yellow'
         })
         this.add.text(game_width / 5, game_height / 1.5, 'Press Enter to Continue', {
             fontFamily: '"Press Start 2P", Papyrus',
@@ -20,7 +20,7 @@ class Win extends Phaser.Scene {
             lives = 3
             score = 0
             this.scene.stop("UI");
-            this.scene.start("HighScore");
+            this.scene.start("titleScene");
         }
     }
 }
