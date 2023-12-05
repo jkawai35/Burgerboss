@@ -4,21 +4,32 @@ class Title extends Phaser.Scene {
     }
 
     create() {
-        this.background = this.add.tileSprite(0,0,640,480, "background").setOrigin(0,0);
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keys = this.input.keyboard.createCursorKeys();
 
-        this.add.text(game_width / 10, game_height / 4, 'BURGER BOSS', {
+        this.add.text(game_width / 5.5, game_height / 3.5, 'BURGERBOSS', {
             fontFamily: '"Press Start 2P", Papyrus',
-            fontSize: '24px'
+            fontSize: '20px'
         })
-        this.add.text(game_width / 9, game_height / 2, 'Press S to start', {
+        this.add.text(game_width / 4, game_height / 9.5, 'HIGH SCORE 99,550', {
             fontFamily: '"Press Start 2P", Papyrus',
-            fontSize: '16px'
+            fontSize: '9px',
+            color: 'red'
         })
-        this.add.text(game_width / 24, game_height / 1.5, 'Collect all tomatoes to win', {
+        this.add.text(game_width / 3, game_height / 6, 'INSERT COIN', {
             fontFamily: '"Press Start 2P", Papyrus',
-            fontSize: '11px'
+            fontSize: '9px',
+            color: 'red'
+        })
+        this.add.text(game_width / 3.8, game_height - 47, 'PRESS S TO START', {
+            fontFamily: '"Press Start 2P", Papyrus',
+            fontSize: '9px',
+            color: 'white'
+        })
+        this.add.text(game_width / 7, game_height - 30, 'PRESS C FOR INSTRUCTIONS', {
+            fontFamily: '"Press Start 2P", Papyrus',
+            fontSize: '9px',
+            color: 'white'
         })
     }
 

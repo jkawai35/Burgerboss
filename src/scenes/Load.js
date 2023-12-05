@@ -28,6 +28,18 @@ class Load extends Phaser.Scene {
     create() {
         this.keys = this.input.keyboard.createCursorKeys()
         this.anims.create({
+            key: 'idle-right',
+            frameRate: 8,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('cook', { start: 0, end: 0 }),
+        })
+        this.anims.create({
+            key: 'idle-left',
+            frameRate: 8,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('cook', { start: 2, end: 2 }),
+        })
+        this.anims.create({
             key: 'walk-left',
             frameRate: 8,
             repeat: -1,

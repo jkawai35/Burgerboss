@@ -43,7 +43,7 @@ class IdleState extends State {
         const { left, right, up, space} = scene.keys;
 
         // transition to swing if pressing space
-        if(space.isDown) {
+        if(space.isDown && !this.isHurt) {
             this.stateMachine.transition('swing');
             return;
         }
@@ -51,14 +51,8 @@ class IdleState extends State {
             this.stateMachine.transition('hurt')
         }
 
-        // hurt state
-        /*if(Phaser.Input.Keyboard.JustDown(HKey)) {
-            this.stateMachine.transition('hurt')
-            return;
-        }*/
-
         // move depending on key pressed
-        if(left.isDown || right.isDown || up.isDown) {
+        if((left.isDown || right.isDown || up.isDown)) {
             this.stateMachine.transition('move')
             return;
         }
@@ -88,12 +82,6 @@ class MoveState extends State {
             this.stateMachine.transition('hurt')
         }
 
-        // hurt state
-        /*if(Phaser.Input.Keyboard.JustDown(HKey)) {
-            this.stateMachine.transition('hurt');
-            return;
-        }*/
-
         // transition to idle if not pressing movement keys
         if(!(left.isDown || right.isDown || (up.isDown && jumpBoolean == 1))) {
             this.stateMachine.transition('idle');
@@ -101,7 +89,7 @@ class MoveState extends State {
         }
 
         // handle movement
-        // let moveDirection = new Phaser.Math.Vector2(0, 0)
+
         if(up.isDown && jumpBoolean == 1) {
             moveDirection.y = -1;
             jumpBoolean = 0
@@ -210,11 +198,7 @@ class SwingState extends State {
 
 class HurtState extends State {
     enter(scene, cook) {
-        cook.setVelocity(0);
-        cook.anims.play(`walk-${cook.direction}`);
-        cook.anims.stop();
         cook.setTint(0xFF0000);
-
         switch(cook.direction) {
             case 'up':
                 cook.y -= 50
@@ -222,10 +206,12 @@ class HurtState extends State {
             case 'left':
                 cook.y -= 50
                 cook.x += 75
+                cook.anims.play(`idle-${cook.direction}`);
                 break;
             case 'right':
                 cook.y -= 50
                 cook.x -= 75
+                cook.anims.play(`idle-${cook.direction}`);
                 break;
         }
         lives -= 1

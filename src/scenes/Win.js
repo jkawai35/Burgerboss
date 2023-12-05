@@ -1,17 +1,17 @@
-class GameOver extends Phaser.Scene {
+class Win extends Phaser.Scene {
     constructor() {
-        super("gameOver");
+        super("win");
     }
 
     create() {
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         this.background = this.add.tileSprite(0,0,640,480, "background").setOrigin(0,0);
-        this.add.text((game_width / 8) - 20, game_height / 2.1, 'GAME OVER', {
+        this.add.text(game_width / 7, game_height / 2.1, 'YOU WIN', {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '32px'
         })
-        this.add.text((game_width / 8) - 30, game_height / 1.5, 'Press S to restart / ESC to go to Menu', {
+        this.add.text(game_width / 5, game_height / 1.5, 'Press Enter to Continue', {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '8px'
         })

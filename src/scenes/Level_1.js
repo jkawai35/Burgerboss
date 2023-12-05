@@ -6,6 +6,9 @@ class Level_1 extends Phaser.Scene {
     create() {
         this.scene.launch('UI');
         this.scene.bringToTop('UI');
+
+        this.tomatoCount = 0;
+
         this.background = this.add.tileSprite(0,0,1250,480, "background").setOrigin(0,0);
 
         //create cook
@@ -69,12 +72,14 @@ class Level_1 extends Phaser.Scene {
         this.tomato1 = this.physics.add.sprite(400, game_height / 2, "tomato");
         this.physics.add.collider(this.cook, this.tomato1, (cook, tomato1) => {
             this.tomato1.destroy();
+            this.tomatoCount += 1;
             score += 10;
         })
 
         this.tomato2 = this.physics.add.sprite(630, game_height / 3, "tomato");
         this.physics.add.collider(this.cook, this.tomato2, (cook, tomato2) => {
             this.tomato2.destroy();
+            this.tomatoCount += 1;
             score += 10;
         })
 
@@ -120,6 +125,11 @@ class Level_1 extends Phaser.Scene {
         if (lives <= 0) {
             this.scene.sendToBack("UI");
             this.scene.start("gameOver");
+        }
+
+        if (this.tomatoCount == 2){
+            this.scene.sendToBack("UI");
+            this.scene.start("win");
         }
               
     }

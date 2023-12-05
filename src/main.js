@@ -19,20 +19,37 @@ let config = {
             debug: false
         }
     },
-    scene: [ Load, Title, UI, Level_1, Level_2, Level_3, GameOver ]
+    scene: [ Load, Title, UI, Level_1, Level_2, Level_3, GameOver, Win ]
 }
 
 let scoreConfig = {
-    fontFamily: 'Press Start 2P, Courier',
-    fontSize: '20px',
-    backgroundColor: '#F3B141',
-    color: '#000000',
-    align: 'right',
+    fontFamily: '"Press Start 2P", Courier',
+    fontSize: '8px',
+    backgroundColor: "#000000",
+    color: '#FFFFFF',
+    align: 'center',
+    /*
     padding: {
         top: 5,
         bottom: 5,
     },
-    fixedWidth: 50
+    */
+    fixedWidth: 100
+}
+
+let livesConfig = {
+    fontFamily: '"Press Start 2P", Courier',
+    fontSize: '8px',
+    backgroundColor: "#000000",
+    color: '#FFFFFF',
+    align: 'center',
+    /*
+    padding: {
+        top: 5,
+        bottom: 5,
+    },
+    */
+    fixedWidth: 70
 }
 
 // define game
