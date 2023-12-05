@@ -18,7 +18,7 @@ class Level_1 extends Phaser.Scene {
         this.cook.body.setSize(20, 30);
 
         //create mustard1
-        this.mustard1 = new Mustard(this, 375, game_width / 2, 'mustard', 0);
+        this.mustard1 = new Mustard(this, 350, game_width / 2, 'mustard', 0);
         this.mustard1.body.setSize(15, 30);
         enemies = this.add.group([this.mustard1]);
 
@@ -92,6 +92,7 @@ class Level_1 extends Phaser.Scene {
         this.physics.add.collider(this.cook, enemies, (cook, enemies) => {
             this.soundtrack.stop();
             this.scene.restart();
+            totalMoved = 0;
             lives -= 1;
         })
 
@@ -105,6 +106,7 @@ class Level_1 extends Phaser.Scene {
         if (this.cook.y > 210) {
             this.soundtrack.stop();
             this.scene.restart();
+            totalMoved = 0;
             lives -= 1;
         } 
         if (Phaser.Input.Keyboard.JustDown(keyESC)){

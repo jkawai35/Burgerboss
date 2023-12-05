@@ -22,7 +22,7 @@ class mMoveState extends State {
         // use destructuring to make a local copy of the keyboard object
 
         // GOING RIGHT
-        if (totalMoved <= 10000){
+        if (totalMoved <= 5000){
             mustard.mDirection = 'right';
             mustard.anims.play(`mwalk-${mustard.mDirection}`, true);
             mustardMD.x = 1;
@@ -31,7 +31,7 @@ class mMoveState extends State {
         }
 
         // GOING LEFT
-        if (totalMoved > 10000){
+        if (totalMoved > 5000){
             mustard.mDirection = 'left';
             mustard.anims.play(`mwalk-${mustard.mDirection}`, true);
             mustardMD.x = -1;
@@ -40,7 +40,7 @@ class mMoveState extends State {
         }
 
         // RESET
-        if (totalMoved > 20000) {
+        if (totalMoved > 10000) {
             totalMoved = 0
         }
 
