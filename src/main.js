@@ -51,6 +51,7 @@ let jumpBoolean = 1;
 let swingBoolean = 0
 
 let totalMoved = 0
+let KillsWho = 0
 
 let moveDirection = new Phaser.Math.Vector2(0, 0)
 let mustardMD = new Phaser.Math.Vector2(0, 0)

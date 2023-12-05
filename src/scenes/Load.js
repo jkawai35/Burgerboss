@@ -84,6 +84,11 @@ class Load extends Phaser.Scene {
                 console.log('Web fonts loaded');
             }
         });
+
+        // MUSIC
+        this.soundtrack = this.sound.add('sfx_music', {loop: true, volume: 20});
+        this.soundtrack.play('');
+
         this.scene.start('titleScene');
     }
 }

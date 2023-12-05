@@ -4,14 +4,9 @@ class Level_1 extends Phaser.Scene {
     }
 
     create() {
-        console.log("LEVEL1")
         this.scene.launch('UI');
         this.scene.bringToTop('UI');
         this.background = this.add.tileSprite(0,0,1250,480, "background").setOrigin(0,0);
-
-        // MUSIC
-        this.soundtrack = this.sound.add('sfx_music', {loop: true, volume: 20});
-        this.soundtrack.play('');
 
         //create cook
         this.cook = new Cook(this, 40, 80, 'cook', 0, 1);
@@ -90,9 +85,8 @@ class Level_1 extends Phaser.Scene {
         this.physics.add.collider(this.mustard1, buildings);
 
 
-        this.KillsWho = 0
         this.physics.add.collider(this.cook, enemies, (cook, enemies) => {
-            this.KillsWho = 1
+            KillsWho = 1
         })
 
         this.ESCisDown = 0
@@ -101,38 +95,30 @@ class Level_1 extends Phaser.Scene {
     update() {
         this.cookFSM.step();
         this.mustardFSM.step();
-        if (this.KillsWho == 1) {
+        if (KillsWho == 1) {
             if (swingBoolean == 1) {
                 this.mustard1.setVisible(false)
-                this.mustard1.setPosition(585, 0)
+                this.mustard1.setPosition(150,400)
                 score += 10;
                 swingBoolean == 0
             }
             else {
-                this.soundtrack.stop();
-                this.scene.restart();
                 totalMoved = 0;
-                lives -= 1;
             }
         }
-        this.KillsWho = 0
+        KillsWho = 0
 
         if (this.cook.y > 210) {
-            this.soundtrack.stop();
-            this.scene.restart();
+            this.cook.setPosition(40, 80)
             totalMoved = 0;
             lives -= 1;
         } 
         if (Phaser.Input.Keyboard.JustDown(keyESC)){
             this.scene.sendToBack("UI");
-            this.soundtrack.stop();
-
             this.scene.start("titleScene");
         }
         if (lives <= 0) {
             this.scene.sendToBack("UI");
-            this.soundtrack.stop();
-
             this.scene.start("gameOver");
         }
               

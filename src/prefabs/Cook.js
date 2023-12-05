@@ -47,6 +47,9 @@ class IdleState extends State {
             this.stateMachine.transition('swing');
             return;
         }
+        if (KillsWho == 1 && swingBoolean == 0) {
+            this.stateMachine.transition('hurt')
+        }
 
         // hurt state
         /*if(Phaser.Input.Keyboard.JustDown(HKey)) {
@@ -80,6 +83,9 @@ class MoveState extends State {
         if(Phaser.Input.Keyboard.JustDown(space)) {
             this.stateMachine.transition('swing');
             return
+        }
+        if (KillsWho == 1 && swingBoolean == 0) {
+            this.stateMachine.transition('hurt')
         }
 
         // hurt state
@@ -135,6 +141,9 @@ class JumpState extends State {
             this.stateMachine.transition('swing');
             return;
         }
+        if (KillsWho == 1 && swingBoolean == 0) {
+            this.stateMachine.transition('hurt')
+        }
 
         /*if(up.isDown){
             moveDirection.y = -1;
@@ -170,13 +179,32 @@ class SwingState extends State {
     enter(scene, cook) {
         const { left, right, up, space} = scene.keys;
         swingBoolean = 1
+        
         cook.anims.play(`swing-${cook.direction}`);
         cook.once('animationcomplete', () => {
-            scene.time.delayedCall(250, () => {
-                this.stateMachine.transition('move');
-                swingBoolean = 0
-            }, null, scene);
+            swingBoolean = 0
+            this.stateMachine.transition('move');
         })
+    }
+    execute(scene, cook) {
+        const { left, right, up, space} = scene.keys;
+        if(left.isDown) {
+            moveDirection.x = -1;
+            cook.direction = 'left';
+        } else if(right.isDown) {
+            moveDirection.x = 1;    
+            cook.direction = 'right';
+        }
+        else {
+            moveDirection.x = 0
+        }
+        if(up.isDown && jumpBoolean == 1) {
+            moveDirection.y = -1;
+            jumpBoolean = 0
+            swingBoolean = 0
+            this.stateMachine.transition('jump');
+        }
+        cook.setVelocityX(cook.cookVelocity * moveDirection.x);
     }
 }
 
@@ -189,16 +217,18 @@ class HurtState extends State {
 
         switch(cook.direction) {
             case 'up':
-                cook.setVelocityY(cook.cookVelocity*2);
+                cook.y -= 50
                 break;
             case 'left':
-                cook.setVelocityX(cook.cookVelocity*2);
+                cook.y -= 50
+                cook.x += 75
                 break;
             case 'right':
-                cook.setVelocityX(-cook.cookVelocity*2);
+                cook.y -= 50
+                cook.x -= 75
                 break;
         }
-
+        lives -= 1
         // set recovery timer
         scene.time.delayedCall(cook.hurtTimer, () => {
             cook.clearTint();
