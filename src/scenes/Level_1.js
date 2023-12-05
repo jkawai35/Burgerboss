@@ -103,6 +103,7 @@ class Level_1 extends Phaser.Scene {
         this.mustardFSM.step();
 
         if (this.cook.y > 210) {
+            this.soundtrack.stop();
             this.scene.restart();
             lives -= 1;
         } 

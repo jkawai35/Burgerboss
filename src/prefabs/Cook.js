@@ -55,7 +55,7 @@ class IdleState extends State {
         }*/
 
         // move depending on key pressed
-        if(left.isDown || right.isDown) {
+        if(left.isDown || right.isDown || up.isDown) {
             this.stateMachine.transition('move')
             return;
         }
@@ -169,7 +169,7 @@ class JumpState extends State {
 class SwingState extends State {
     enter(scene, cook) {
         const { left, right, up, space} = scene.keys;
-        if (jumpBoolean == 1 || !up.isDown) {
+        if (jumpBoolean == 1 && !up.isDown) {
             cook.setVelocityX(0)
         }
         cook.anims.play(`swing-${cook.direction}`);
