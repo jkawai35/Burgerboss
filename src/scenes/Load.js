@@ -8,7 +8,9 @@ class Load extends Phaser.Scene {
 
         this.load.audio('sfx_music', './assets/main_music.wav');
         this.load.audio('LaserTinyShot', './assets/LaserTinyShot.wav');
+        this.load.audio("sfx_select", "./assets/mixkit-arcade-mechanical-bling-210.wav");
 
+        this.load.image("titleCharacter", "./assets/TitleCharacter.png");
         this.load.image("brownBuilding", "./assets/BrownBuilding.png");
         this.load.image("blueBuilding", "./assets/BlueBuilding.png");
         this.load.image("greenBuilding", "./assets/GreenBuilding.png");

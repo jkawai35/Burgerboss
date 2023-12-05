@@ -6,6 +6,7 @@ class Level_1 extends Phaser.Scene {
     create() {
         this.scene.launch('UI');
         this.scene.bringToTop('UI');
+        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 20});
 
         this.tomatoCount = 0;
 
@@ -119,6 +120,7 @@ class Level_1 extends Phaser.Scene {
             lives -= 1;
         } 
         if (Phaser.Input.Keyboard.JustDown(keyESC)){
+            this.blingSound.play();
             this.scene.stop("UI");
             this.scene.start("titleScene");
         }

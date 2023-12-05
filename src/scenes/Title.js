@@ -9,6 +9,10 @@ class Title extends Phaser.Scene {
 
         this.keys = this.input.keyboard.createCursorKeys();
 
+        this.characterPic = this.add.image(game_width / 2.7, game_height / 2.7, "titleCharacter").setOrigin(0,0).setScale(3);
+
+        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 20});
+
         this.add.text(game_width / 5.5, game_height / 3.5, 'BURGERBOSS', {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '20px'
@@ -39,9 +43,11 @@ class Title extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(keyS)){
             lives = 3
             score = 0
+            this.blingSound.play();
             this.scene.start("level1");
         }
         if (Phaser.Input.Keyboard.JustDown(keyC)){
+            this.blingSound.play();
             this.scene.start("Instructions");
         }
     }

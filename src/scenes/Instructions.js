@@ -5,7 +5,9 @@ class Instructions extends Phaser.Scene {
 
     create() {
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-        this.add.text(game_width / 4, game_height / 9, 'Use ← and  to move', {
+        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 20});
+
+        this.add.text(game_width / 4, game_height / 9, 'Use ← and → to move', {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '8px',
             color: 'white'
@@ -29,6 +31,7 @@ class Instructions extends Phaser.Scene {
     }
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyESC)){
+            this.blingSound.play();
             this.scene.start("titleScene");
         }
     }
