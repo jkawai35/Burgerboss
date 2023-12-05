@@ -76,19 +76,20 @@ class Load extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('mustard', { start: 2, end: 3 }),
         })
 
+        // MUSIC
+        this.soundtrack = this.sound.add('sfx_music', {loop: true, volume: 20});
+        this.soundtrack.play('');
+
+        let currentScene = this
         window.WebFont.load({
             google: {
                 families: ['Press Start 2P']
             },
             active: function() {
                 console.log('Web fonts loaded');
+                currentScene.scene.start('titleScene')
             }
         });
 
-        // MUSIC
-        this.soundtrack = this.sound.add('sfx_music', {loop: true, volume: 20});
-        this.soundtrack.play('');
-
-        this.scene.start('titleScene');
     }
 }

@@ -1,6 +1,6 @@
 class Title extends Phaser.Scene {
     constructor() {
-        super("titleScene");
+        super({ key: 'titleScene' })
     }
 
     create() {
@@ -8,17 +8,17 @@ class Title extends Phaser.Scene {
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keys = this.input.keyboard.createCursorKeys();
 
-        this.add.text(game_width / 2.6, game_height / 2.1, 'BURGER BOSS', {
-            fontFamily: 'Press Start 2P, Papyrus',
-            fontSize: '48px'
+        this.add.text(game_width / 10, game_height / 4, 'BURGER BOSS', {
+            fontFamily: '"Press Start 2P", Papyrus',
+            fontSize: '24px'
         })
-        this.add.text(game_width / 2.55, game_height / 1.8, 'Press S to start', {
-            fontFamily: 'Press Start 2P, Papyrus',
-            fontSize: '48px'
+        this.add.text(game_width / 9, game_height / 2, 'Press S to start', {
+            fontFamily: '"Press Start 2P", Papyrus',
+            fontSize: '16px'
         })
-        this.add.text(game_width / 3.1, game_height / 1.5, 'Collect all tomatoes to win', {
-            fontFamily: 'Press Start 2P, Papyrus',
-            fontSize: '48px'
+        this.add.text(game_width / 24, game_height / 1.5, 'Collect all tomatoes to win', {
+            fontFamily: '"Press Start 2P", Papyrus',
+            fontSize: '11px'
         })
     }
 
