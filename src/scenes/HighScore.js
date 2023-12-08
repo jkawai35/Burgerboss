@@ -7,6 +7,7 @@ class HighScore extends Phaser.Scene {
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 20});
 
+        //add text (fake high score screen)
         this.add.text(game_width / 5.5, game_height / 12, 'HIGH SCORE', {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '20px',

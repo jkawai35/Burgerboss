@@ -8,6 +8,8 @@ class Win extends Phaser.Scene {
         this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 20});
 
         this.background = this.add.tileSprite(0,0,640,480, "background").setOrigin(0,0);
+
+        //add text for screen
         this.add.text(game_width / 7, game_height / 2.1, 'YOU WIN', {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '32px'

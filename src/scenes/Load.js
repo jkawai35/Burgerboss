@@ -6,16 +6,20 @@ class Load extends Phaser.Scene {
     preload() {
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 
+        //load audio files
         this.load.audio('sfx_music', './assets/main_music.wav');
         this.load.audio('LaserTinyShot', './assets/LaserTinyShot.wav');
         this.load.audio("sfx_select", "./assets/mixkit-arcade-mechanical-bling-210.wav");
 
+        //load assets
         this.load.image("titleCharacter", "./assets/TitleCharacter.png");
         this.load.image("brownBuilding", "./assets/BrownBuilding.png");
         this.load.image("blueBuilding", "./assets/BlueBuilding.png");
         this.load.image("greenBuilding", "./assets/GreenBuilding.png");
         this.load.image("blueBuilding", "./assets/BlueBuildig.png");
         this.load.image("tomato", "./assets/tomato.png");
+
+        //load spritesheets for characters
         this.load.spritesheet('mustard', './assets/mustard.png', {
             frameWidth: 30,
             frameHeight: 30,
@@ -24,11 +28,15 @@ class Load extends Phaser.Scene {
             frameWidth: 30,
             frameHeight: 30,
         });
+
+        //load background image
         this.load.image("background", "./assets/Background.png");
     }
 
     create() {
         this.keys = this.input.keyboard.createCursorKeys()
+
+        //create animations for all characters
         this.anims.create({
             key: 'idle-right',
             frameRate: 8,

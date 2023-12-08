@@ -43,31 +43,5 @@ class mMoveState extends State {
         if (totalMoved > 10000) {
             totalMoved = 0
         }
-
-        /*
-        while (!this.changeDirection){
-            mustardMD.x = 1;
-            this.totalMoved += mustard.mVelocity;
-            mustard.anims.play(`mwalk-${mustard.mDirection}`, true);
-            mustard.setVelocityX(mustard.mVelocity * mustardMD.x);
-        }
-        */
-        /*
-        while (!this.changeDirection){
-            mustardMD.x = -1;
-            this.totalMoved -= mVelocity;
-            mustard.anims.play(`mwalk-${mustard.mDirection}`, true);
-            if (this.totalMoved <= -100){
-                this.totalMoved = 0;
-                mustardMD.x = -1;
-                mDirection = 'right'
-                this.changeDirection = false
-                break;
-            }
-            mustard.setVelocityX(mustard.mVelocity * mustardMD.x);
-        }
-        */
-
-
     }
 }

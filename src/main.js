@@ -43,12 +43,6 @@ let livesConfig = {
     backgroundColor: "#000000",
     color: '#FFFFFF',
     align: 'center',
-    /*
-    padding: {
-        top: 5,
-        bottom: 5,
-    },
-    */
     fixedWidth: 70
 }
 

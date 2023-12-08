@@ -133,11 +133,6 @@ class JumpState extends State {
             this.stateMachine.transition('hurt')
         }
 
-        /*if(up.isDown){
-            moveDirection.y = -1;
-            cook.direction = 'up';
-        }*/
-
         scene.time.delayedCall(250, () => {
             this.stateMachine.transition('idle')
             jumpBoolean = 0
@@ -175,6 +170,7 @@ class SwingState extends State {
         })
     }
     execute(scene, cook) {
+        //check arrow key input and set move direction
         const { left, right, up, space} = scene.keys;
         if(left.isDown) {
             moveDirection.x = -1;
@@ -198,6 +194,7 @@ class SwingState extends State {
 
 class HurtState extends State {
     enter(scene, cook) {
+        //set tint and move character back for knockback effect
         cook.setTint(0xFF0000);
         switch(cook.direction) {
             case 'up':
