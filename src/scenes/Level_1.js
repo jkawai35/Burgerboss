@@ -25,6 +25,7 @@ class Level_1 extends Phaser.Scene {
         //define keys
         this.keys = this.input.keyboard.createCursorKeys();
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
         //set camera to follow player
         this.cameras.main.setBounds(0, 0, 1000, 240)
@@ -129,6 +130,13 @@ class Level_1 extends Phaser.Scene {
             this.blingSound.play();
             this.scene.stop("UI");
             this.scene.start("titleScene");
+        }
+        if (Phaser.Input.Keyboard.JustDown(keyR)){
+            score = 0
+            lives = 3
+            this.blingSound.play();
+            this.scene.stop("UI");
+            this.scene.restart()
         }
 
         //check if player runs out of lives

@@ -8,7 +8,6 @@ class Load extends Phaser.Scene {
 
         //load audio files
         this.load.audio('sfx_music', './assets/main_music.wav');
-        this.load.audio('LaserTinyShot', './assets/LaserTinyShot.wav');
         this.load.audio("sfx_select", "./assets/mixkit-arcade-mechanical-bling-210.wav");
 
         //load assets

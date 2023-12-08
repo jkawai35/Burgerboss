@@ -71,6 +71,7 @@ let keyS;
 let keyESC;
 let keyENTER;
 let keyC;
+let keyR;
 
 let score = 0;
 let lives = 3;
