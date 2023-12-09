@@ -23,6 +23,10 @@ class Load extends Phaser.Scene {
             frameWidth: 30,
             frameHeight: 30,
         });
+        this.load.spritesheet('ketchup', './assets/ketchup.png', {
+            frameWidth: 30,
+            frameHeight: 30,
+        });
         this.load.spritesheet('cook', './assets/Burgerboss.png', {
             frameWidth: 30,
             frameHeight: 30,
@@ -84,6 +88,8 @@ class Load extends Phaser.Scene {
             repeat: -1,
             frames: this.anims.generateFrameNumbers('cook', { start: 1, end: 1 }),
         })
+
+        //mustard anims
         this.anims.create({
             key: 'mwalk-right',
             frameRate: 4,
@@ -95,6 +101,20 @@ class Load extends Phaser.Scene {
             frameRate: 4,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('mustard', { start: 2, end: 3 }),
+        })
+
+        //ketchup anims
+        this.anims.create({
+            key: 'kwalk-right',
+            frameRate: 4,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('ketchup', { start: 0, end: 1 }),
+        })
+        this.anims.create({
+            key: 'kwalk-left',
+            frameRate: 4,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('ketchup', { start: 2, end: 3 }),
         })
 
         // MUSIC

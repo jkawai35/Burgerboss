@@ -20,7 +20,10 @@ class Level_1 extends Phaser.Scene {
         //create mustard1
         this.mustard1 = new Mustard(this, 350, game_width / 2, 'mustard', 0);
         this.mustard1.body.setSize(15, 30);
-        enemies = this.add.group([this.mustard1]);
+
+        //create ketchup1
+        this.ketchup1 = new Ketchup(this, 450, game_width / 2 - 30, 'ketchup', 0);
+        this.ketchup1.body.setSize(15, 30);
 
         //define keys
         this.keys = this.input.keyboard.createCursorKeys();
@@ -73,6 +76,10 @@ class Level_1 extends Phaser.Scene {
         buildings = this.add.group([this.building1, this.building2, this.building3,
         this.building4, this.building5, this.building6, this.building7, this.building8]);
 
+        //add buildings to collider group
+        enemies = this.add.group([this.mustard1, this.ketchup1]);
+
+
         //add first tomato
         this.tomato1 = this.physics.add.sprite(400, game_height / 2, "tomato");
         this.physics.add.collider(this.cook, this.tomato1, (cook, tomato1) => {
@@ -94,6 +101,8 @@ class Level_1 extends Phaser.Scene {
             jumpBoolean = 1
         })
         this.physics.add.collider(this.mustard1, buildings);
+        this.physics.add.collider(this.ketchup1, buildings);
+
         this.physics.add.collider(this.cook, enemies, (cook, enemies) => {
             KillsWho = 1
         })
@@ -104,6 +113,7 @@ class Level_1 extends Phaser.Scene {
     update() {
         this.cookFSM.step();
         this.mustardFSM.step();
+        this.ketchupFSM.step();
 
         //check attack on enemy
         if (KillsWho == 1) {

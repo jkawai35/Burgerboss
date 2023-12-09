@@ -66,6 +66,8 @@ let KillsWho = 0
 
 let moveDirection = new Phaser.Math.Vector2(0, 0)
 let mustardMD = new Phaser.Math.Vector2(0, 0)
+let ketchupMD = new Phaser.Math.Vector2(0, 0)
+
 
 let keyS;
 let keyESC;
