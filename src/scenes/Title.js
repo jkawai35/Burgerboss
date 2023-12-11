@@ -6,6 +6,7 @@ class Title extends Phaser.Scene {
     create() {
         keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        keyI = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
 
         this.keys = this.input.keyboard.createCursorKeys();
 
@@ -30,12 +31,17 @@ class Title extends Phaser.Scene {
             fontSize: '9px',
             color: 'red'
         })
-        this.add.text(game_width / 3.8, game_height - 47, 'PRESS S TO START', {
+        this.add.text(game_width / 3.8, game_height - 50, 'PRESS S TO START', {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '9px',
             color: 'white'
         })
-        this.add.text(game_width / 7, game_height - 30, 'PRESS C FOR INSTRUCTIONS', {
+        this.add.text(game_width / 7, game_height - 33, 'PRESS I FOR INSTRUCTIONS', {
+            fontFamily: '"Press Start 2P", Papyrus',
+            fontSize: '9px',
+            color: 'white'
+        })
+        this.add.text(game_width / 4.6, game_height - 16, 'PRESS C FOR CREDITS', {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '9px',
             color: 'white'
@@ -52,9 +58,13 @@ class Title extends Phaser.Scene {
             this.blingSound.play();
             this.scene.start("level1");
         }
-        if (Phaser.Input.Keyboard.JustDown(keyC)){
+        if (Phaser.Input.Keyboard.JustDown(keyI)){
             this.blingSound.play();
             this.scene.start("Instructions");
+        }
+        if (Phaser.Input.Keyboard.JustDown(keyC)){
+            this.blingSound.play();
+            this.scene.start("Credits");
         }
     }
 }

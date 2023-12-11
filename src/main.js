@@ -19,7 +19,7 @@ let config = {
             debug: false
         }
     },
-    scene: [ Load, Title, Instructions, UI, Level_1, Level_2, Level_3, GameOver, Win, HighScore ]
+    scene: [ Load, Title, Instructions, Credits, UI, Level_1, Level_2, Level_3, GameOver, Win, HighScore ]
 }
 
 let scoreConfig = {
@@ -75,6 +75,7 @@ let keyESC;
 let keyENTER;
 let keyC;
 let keyR;
+let keyI;
 
 let levelTracker = 0
 

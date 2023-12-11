@@ -105,6 +105,8 @@ class Level_3 extends Phaser.Scene {
             this.scene.stop("UI");
             this.scene.start("win");
         })
+        // add variable to keep track of color changes to victory collider (this distinguishes the victory collider and makes it easier for the player to recognise)
+        this.victoryIterate = 0
 
 
         //add colliders
@@ -118,10 +120,9 @@ class Level_3 extends Phaser.Scene {
             KillsWho = 1
         })
 
-        this.ESCisDown = 0
-        this.ESCText = 0
-
-        this.victoryIterate = 0
+        // variables for jump checking
+        this.jumpCheck = 0
+        this.jumpCheck2 = 0
     }
     update() {
         this.cookFSM.step();

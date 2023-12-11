@@ -134,6 +134,8 @@ class Level_1 extends Phaser.Scene {
             this.scene.stop("UI");
             this.scene.start("win");
         })
+        // add variable to keep track of color changes to victory collider (these changes are done in update())
+        this.victoryIterate = 0
 
 
         //add colliders
@@ -147,12 +149,12 @@ class Level_1 extends Phaser.Scene {
             KillsWho = 1
         })
 
-        this.ESCisDown = 0
-        this.ESCText = 0
-
-        this.victoryIterate = 0
+        // variables for jump checking
+        this.jumpCheck = 0
+        this.jumpCheck2 = 0
     }
     update() {
+        // state machines
         this.cookFSM.step();
         this.mustardFSM.step();
         this.ketchupFSM.step();
@@ -168,13 +170,14 @@ class Level_1 extends Phaser.Scene {
         }
         KillsWho = 0
 
-        //check if cook falls between buildings
-        //reset position
+        // check if cook falls between buildings
+        // if so, reset position
         if (this.cook.y > 210) {
             this.cook.setPosition(40, 80)
             totalMoved = 0;
             lives -= 1;
         } 
+        // hotkeys for scene switching/restarting
         if (Phaser.Input.Keyboard.JustDown(keyESC)){
             this.blingSound.play();
             this.scene.stop("UI");
@@ -194,7 +197,7 @@ class Level_1 extends Phaser.Scene {
             this.scene.start("gameOver");
         }
         
-        // Color change for victory orb
+        // color changes to victory collider (this allows the player to easily recognize the level's 'endgoal')
         this.victoryIterate += 1
         if (this.victoryIterate == 100) {
             this.victory.setTint(0x004dff)

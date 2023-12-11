@@ -88,27 +88,35 @@ class Level_2 extends Phaser.Scene {
         //add buildings to collider group
         enemies = this.add.group([this.mustard1, this.ketchup1]);
 
+        // Tutorial tip for when player first encounters double jump collider
         this.doubleJumpTip = this.add.text(100, game_height / 2 - 60, "This purple orb allows you " + "\n \n" + "to jump again in mid-air", {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '7px'
         });
     
-        //add double jump
+        //add double jump collider, this resets the jumpBoolean to 1 while mid-air, allowing for a second mid-air jump
+        // when colliding with the double jump orb, it will 'disappear' temporarily, then re-appear in its previous location
         this.doubleJump = this.physics.add.sprite(160, game_height / 2 - 20, "tomato").setTint(0x4705ad).setScale(1.3);
         this.doubleJump.body.setImmovable(true);
         this.physics.add.collider(this.cook, this.doubleJump, (cook, doubleJump) => {
+
+            // make the orb 'disappear'
             this.doubleJump.setVisible(false)
             this.doubleJump.setPosition(300, game_height / 2 - 100)
+
+            // after a short delay, grant an additional mid-air jump
             this.time.delayedCall(350, () => {
                 jumpBoolean = 1
             }, null, this);
+
+            // after 1.5 seconds, make the orb re-appear in its previous location
             this.time.delayedCall(1500, () => {
                 this.doubleJump.setVisible(true)
                 this.doubleJump.setPosition(160, game_height / 2 - 20)
             }, null, this);
         })
 
-        //add double jump 2
+        //add double jump 2, same process as above
         this.doubleJump2 = this.physics.add.sprite(660, game_height / 2 - 30, "tomato").setTint(0x4705ad).setScale(1.3);
         this.doubleJump2.body.setImmovable(true);
         this.physics.add.collider(this.cook, this.doubleJump2, (cook, doubleJump2) => {
@@ -123,7 +131,7 @@ class Level_2 extends Phaser.Scene {
             }, null, this);
         })
 
-        //add double jump 3
+        //add double jump 3, same process as above
         this.doubleJump3 = this.physics.add.sprite(1300, game_height / 2 + 10, "tomato").setTint(0x4705ad).setScale(1.3);
         this.doubleJump3.body.setImmovable(true);
         this.physics.add.collider(this.cook, this.doubleJump3, (cook, doubleJump3) => {
@@ -177,6 +185,8 @@ class Level_2 extends Phaser.Scene {
             this.scene.stop("UI");
             this.scene.start("win");
         })
+        // add variable to keep track of color changes to victory collider (these changes are done in update())
+        this.victoryIterate = 0
 
 
         //add colliders
@@ -190,15 +200,12 @@ class Level_2 extends Phaser.Scene {
             KillsWho = 1
         })
 
-        this.ESCisDown = 0
-        this.ESCText = 0
-
-        this.victoryIterate = 0
-
+        // variables for jump checking
         this.jumpCheck = 0
         this.jumpCheck2 = 0
     }
     update() {
+        // state machines
         this.cookFSM.step();
         this.mustardFSM.step();
         this.ketchupFSM.step();
@@ -214,13 +221,14 @@ class Level_2 extends Phaser.Scene {
         }
         KillsWho = 0
 
-        //check if cook falls between buildings
-        //reset position
+        // check if cook falls between buildings
+        // if so, reset position
         if (this.cook.y > 210) {
             this.cook.setPosition(100, 80)
             totalMoved = 0;
             lives -= 1;
         } 
+        // hotkeys for scene switching/restarting
         if (Phaser.Input.Keyboard.JustDown(keyESC)){
             this.blingSound.play();
             this.scene.stop("UI");
@@ -240,7 +248,7 @@ class Level_2 extends Phaser.Scene {
             this.scene.start("gameOver");
         }
         
-        // Color change for victory orb
+        // color changes to victory collider (this allows the player to easily recognize the level's 'endgoal')
         this.victoryIterate += 1
         if (this.victoryIterate == 100) {
             this.victory.setTint(0x004dff)
