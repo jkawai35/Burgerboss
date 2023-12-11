@@ -89,7 +89,6 @@ class MoveState extends State {
         // handle movement
         if(up.isDown && jumpBoolean == 1) {
             moveDirection.y = -1;
-            jumpBoolean = 0
             this.stateMachine.transition('jump');
         }
         if(left.isDown) {
@@ -130,8 +129,8 @@ class JumpState extends State {
 
         scene.time.delayedCall(250, () => {
             this.stateMachine.transition('idle')
-            jumpBoolean = 0
         }, null, scene);
+        jumpBoolean = 0
         if(left.isDown) {
             moveDirection.x = -1;
             cook.direction = 'left';
@@ -173,7 +172,6 @@ class SwingState extends State {
         }
         if(up.isDown && jumpBoolean == 1) {
             moveDirection.y = -1;
-            jumpBoolean = 0
             swingBoolean = 0
             this.stateMachine.transition('jump');
         }

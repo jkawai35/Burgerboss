@@ -22,7 +22,7 @@ class kMoveState extends State {
         // use destructuring to make a local copy of the keyboard object
 
         // GOING RIGHT
-        if (totalMoved <= 5000){
+        if (totalMoved <= 7500){
             ketchup.mDirection = 'right';
             ketchup.anims.play(`kwalk-${ketchup.mDirection}`, true);
             ketchupMD.x = 1;
@@ -31,7 +31,7 @@ class kMoveState extends State {
         }
 
         // GOING LEFT
-        if (totalMoved > 5000){
+        if (totalMoved > 7500){
             ketchup.mDirection = 'left';
             ketchup.anims.play(`kwalk-${ketchup.mDirection}`, true);
             ketchupMD.x = -1;
@@ -40,7 +40,7 @@ class kMoveState extends State {
         }
 
         // RESET
-        if (totalMoved > 10000) {
+        if (totalMoved > 15000) {
             totalMoved = 0
         }
     }

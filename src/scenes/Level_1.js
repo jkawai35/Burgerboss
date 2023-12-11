@@ -11,7 +11,7 @@ class Level_1 extends Phaser.Scene {
 
         this.tomatoCount = 0;
 
-        this.background = this.add.tileSprite(0,0,1250,480, "background").setOrigin(0,0);
+        this.background = this.add.tileSprite(0,0,1750,480, "background").setOrigin(0,0);
 
         //create cook
         this.cook = new Cook(this, 40, 80, 'cook', 0, 1);
@@ -22,7 +22,7 @@ class Level_1 extends Phaser.Scene {
         this.mustard1.body.setSize(15, 30);
 
         //create ketchup1
-        this.ketchup1 = new Ketchup(this, 450, game_width / 2 - 30, 'ketchup', 0);
+        this.ketchup1 = new Ketchup(this, 1175, game_width / 4, 'ketchup', 0);
         this.ketchup1.body.setSize(15, 30);
 
         //define keys
@@ -31,9 +31,9 @@ class Level_1 extends Phaser.Scene {
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
         //set camera to follow player
-        this.cameras.main.setBounds(0, 0, 1000, 240)
+        this.cameras.main.setBounds(0, 0, 1500, 240)
         this.cameras.main.startFollow(this.cook, true, 0.25, 0)
-        this.physics.world.setBounds(0, 0, 1000, 240, true, true, true, true);
+        this.physics.world.setBounds(0, 0, 1500, 240, true, true, true, true);
 
         //set builidng1 
         this.building1 = this.physics.add.sprite(40, game_height - 50, "brownBuilding");
@@ -61,20 +61,35 @@ class Level_1 extends Phaser.Scene {
         this.building6.setScale(1.5);
         this.building6.body.setImmovable(true);
 
-        //set building6
+        //set building7
         this.building7 = this.physics.add.sprite(800, game_height - 50, "blueBuilding")
         this.building7.setScale(1.5);
         this.building7.body.setImmovable(true);
         this.building7.setTint(0xffff00)
 
-        //set building7
+        //set building8
         this.building8 = this.physics.add.sprite(950, game_height - 60, "blueBuilding")
         this.building8.setScale(1.5);
         this.building8.body.setImmovable(true);
 
+        //set building9
+        this.building9 = this.physics.add.sprite(1050, game_height - 60, "brownBuilding")
+        this.building9.setScale(1.2);
+        this.building9.body.setImmovable(true);
+
+        //set building10
+        this.building10 = this.physics.add.sprite(1200, game_height - 20, "greenBuilding")
+        this.building10.setScale(1);
+        this.building10.body.setImmovable(true);
+
+        //set building11
+        this.building11 = this.physics.add.sprite(1350, game_height - 30, "blueBuilding")
+        this.building11.setScale(1.5);
+        this.building11.body.setImmovable(true);
+
         //add buildings to collider group
         buildings = this.add.group([this.building1, this.building2, this.building3,
-        this.building4, this.building5, this.building6, this.building7, this.building8]);
+        this.building4, this.building5, this.building6, this.building7, this.building8, this.building9, this.building10, this.building11]);
 
         //add buildings to collider group
         enemies = this.add.group([this.mustard1, this.ketchup1]);
@@ -95,10 +110,35 @@ class Level_1 extends Phaser.Scene {
             this.tomatoCount += 1;
             score += 10;
         })
+        //add third tomato
+        this.tomato3 = this.physics.add.sprite(1175, game_height - 80, "tomato");
+        this.physics.add.collider(this.cook, this.tomato3, (cook, tomato3) => {
+            this.tomato3.destroy();
+            this.tomatoCount += 1;
+            score += 10;
+        })
+
+        //add fourth tomato
+        this.tomato4 = this.physics.add.sprite(1325, game_height / 3, "tomato");
+        this.physics.add.collider(this.cook, this.tomato4, (cook, tomato4) => {
+            this.tomato4.destroy();
+            this.tomatoCount += 1;
+            score += 10;
+        })
+
+        //add victory collider
+        this.victory = this.physics.add.sprite(1450, game_height / 1.5, "tomato").setTint(0x0fff00).setScale(1.5);
+        this.physics.add.collider(this.cook, this.victory, (cook, victory) => {
+            levelTracker = 1
+            totalScore += score
+            this.scene.stop("UI");
+            this.scene.start("win");
+        })
+
 
         //add colliders
         this.physics.add.collider(this.cook, buildings, (cook, buildings) => {
-            jumpBoolean = 1
+            collisionBoolean = 1
         })
         this.physics.add.collider(this.mustard1, buildings);
         this.physics.add.collider(this.ketchup1, buildings);
@@ -109,6 +149,8 @@ class Level_1 extends Phaser.Scene {
 
         this.ESCisDown = 0
         this.ESCText = 0
+
+        this.victoryIterate = 0
     }
     update() {
         this.cookFSM.step();
@@ -122,9 +164,6 @@ class Level_1 extends Phaser.Scene {
                 this.mustard1.setPosition(150,400)
                 score += 10;
                 swingBoolean == 0
-            }
-            else {
-                totalMoved = 0;
             }
         }
         KillsWho = 0
@@ -154,12 +193,34 @@ class Level_1 extends Phaser.Scene {
             this.scene.sendToBack("UI");
             this.scene.start("gameOver");
         }
-
-        //check if all tomatoes have been collected
-        if (this.tomatoCount == 2){
-            this.scene.sendToBack("UI");
-            this.scene.start("win");
+        
+        // Color change for victory orb
+        this.victoryIterate += 1
+        if (this.victoryIterate == 100) {
+            this.victory.setTint(0x004dff)
         }
+        else if (this.victoryIterate == 200) {
+            this.victory.setTint(0x0fff00)
+            this.victoryIterate = 0
+        }
+
+        // This code below prevents jumping from the sides of walls
+        if (this.cook.body.velocity.y == 0 && this.jumpCheck == 1 && this.jumpCheck2 == 1 && collisionBoolean == 1) {
+            jumpBoolean = 1
+        }
+        if (this.cook.body.velocity.y == 0 && this.jumpCheck == 1) {
+            this.jumpCheck2 = 1
+        }
+        else {
+            this.jumpCheck2 = 0
+        }
+        if (this.cook.body.velocity.y == 0) {
+            this.jumpCheck = 1
+        }
+        else {
+            this.jumpCheck = 0
+        }
+
               
     }
 }

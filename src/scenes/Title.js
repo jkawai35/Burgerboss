@@ -48,6 +48,7 @@ class Title extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(keyS)){
             lives = 3
             score = 0
+            totalScore = 0
             this.blingSound.play();
             this.scene.start("level1");
         }

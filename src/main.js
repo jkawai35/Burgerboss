@@ -58,8 +58,9 @@ let game_height = game.config.height;
 let buildings;
 let enemies;
 
-let jumpBoolean = 1;
+let jumpBoolean = 1
 let swingBoolean = 0
+let collisionBoolean = 0
 
 let totalMoved = 0
 let KillsWho = 0
@@ -75,5 +76,8 @@ let keyENTER;
 let keyC;
 let keyR;
 
+let levelTracker = 0
+
 let score = 0;
 let lives = 3;
+let totalScore = 0;

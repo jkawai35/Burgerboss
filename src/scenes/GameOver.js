@@ -17,15 +17,19 @@ class GameOver extends Phaser.Scene {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '8px'
         })
+        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 20});
+
     }
     update() {
         //check key inputs to navagte scenes
         if (Phaser.Input.Keyboard.JustDown(keyS)){
+            this.blingSound.play();
             lives = 3
             score = 0
-            this.scene.start("level1");
+            this.scene.start("level" + (levelTracker + 1));
         }
         if (Phaser.Input.Keyboard.JustDown(keyESC)){
+            this.blingSound.play();
             lives = 3
             score = 0
             this.scene.stop("UI");
