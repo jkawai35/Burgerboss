@@ -63,7 +63,7 @@ let swingBoolean = 0
 let collisionBoolean = 0
 
 let totalMoved = 0
-let KillsWho = 0
+let hurtState = 0
 
 let moveDirection = new Phaser.Math.Vector2(0, 0)
 let mustardMD = new Phaser.Math.Vector2(0, 0)

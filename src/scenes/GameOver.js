@@ -8,14 +8,13 @@ class GameOver extends Phaser.Scene {
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         //add texts for game over screen
-        this.background = this.add.tileSprite(0,0,640,480, "background").setOrigin(0,0);
-        this.add.text((game_width / 8) - 20, game_height / 2.1, 'GAME OVER', {
+        this.add.text((game_width / 8) - 20, game_height / 2.5, 'GAME OVER', {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '32px'
         })
-        this.add.text((game_width / 8) - 30, game_height / 1.5, 'Press S to restart / ESC to go to Menu', {
+        this.add.text(game_width / 12, game_height / 1.5, '   Press S to restart' + '\n\n' + 'Press ESC to go to Menu', {
             fontFamily: '"Press Start 2P", Papyrus',
-            fontSize: '8px'
+            fontSize: '12px'
         })
         this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 20});
 

@@ -11,6 +11,10 @@ class Cook extends Phaser.Physics.Arcade.Sprite{
         this.setGravityY(750);
         this.setCollideWorldBounds(true);
 
+        this.cookSword = scene.physics.add.sprite(40, 80, "");
+        this.cookSword.body.setSize(20, 10);
+        this.cookSword.setVisible(false)
+
         //create state machine
         scene.cookFSM = new StateMachine('idle', {
             idle: new IdleState(),
@@ -43,7 +47,11 @@ class IdleState extends State {
             this.stateMachine.transition('swing');
             return;
         }
-        if (KillsWho == 1 && swingBoolean == 0) {
+        else {
+            cook.cookSword.setPosition(40, 80)
+        }
+        if (hurtState == 1) {
+            hurtState = 0
             this.stateMachine.transition('hurt')
         }
 
@@ -76,7 +84,11 @@ class MoveState extends State {
             this.stateMachine.transition('swing');
             return
         }
-        if (KillsWho == 1 && swingBoolean == 0) {
+        else {
+            cook.cookSword.setPosition(40, 80)
+        }
+        if (hurtState == 1) {
+            hurtState = 0
             this.stateMachine.transition('hurt')
         }
 
@@ -123,7 +135,8 @@ class JumpState extends State {
             this.stateMachine.transition('swing');
             return;
         }
-        if (KillsWho == 1 && swingBoolean == 0) {
+        if (hurtState == 1) {
+            hurtState = 0
             this.stateMachine.transition('hurt')
         }
 
@@ -150,10 +163,10 @@ class SwingState extends State {
     enter(scene, cook) {
         const { left, right, up, space} = scene.keys;
         swingBoolean = 1
-        
         cook.anims.play(`swing-${cook.direction}`);
         cook.once('animationcomplete', () => {
             swingBoolean = 0
+            cook.cookSword.setPosition(40, 80)
             this.stateMachine.transition('move');
         })
     }
@@ -173,7 +186,14 @@ class SwingState extends State {
         if(up.isDown && jumpBoolean == 1) {
             moveDirection.y = -1;
             swingBoolean = 0
+            cook.cookSword.setPosition(40, 80)
             this.stateMachine.transition('jump');
+        }
+        if (cook.direction == 'left') {
+            cook.cookSword.setPosition(scene.cook.x - 15, scene.cook.y - 3)
+        }
+        else if (cook.direction == 'right') {
+            cook.cookSword.setPosition(scene.cook.x + 15, scene.cook.y - 3)
         }
         cook.setVelocityX(cook.cookVelocity * moveDirection.x);
     }
@@ -202,6 +222,7 @@ class HurtState extends State {
         // set recovery timer
         scene.time.delayedCall(cook.hurtTimer, () => {
             cook.clearTint();
+            hurtState = 0
             this.stateMachine.transition('idle');
         })
     }

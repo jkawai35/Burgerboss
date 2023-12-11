@@ -116,8 +116,20 @@ class Level_3 extends Phaser.Scene {
         this.physics.add.collider(this.mustard1, buildings);
         this.physics.add.collider(this.ketchup1, buildings);
 
+        this.mustardStateTracker = 0
+        this.ketchupStateTracker = 0
         this.physics.add.collider(this.cook, enemies, (cook, enemies) => {
-            KillsWho = 1
+            hurtState = 1
+        })
+        this.physics.add.overlap(this.cook.cookSword, this.ketchup1, (cook, ketchup1) => {
+            this.ketchupStateTracker = 1
+            this.ketchup1.destroy()
+            score += 10;
+        })
+        this.physics.add.overlap(this.cook.cookSword, this.mustard1, (cook, mustard1) => {
+            this.mustardStateTracker = 1
+            this.mustard1.destroy()
+            score += 10;
         })
 
         // variables for jump checking
@@ -125,20 +137,14 @@ class Level_3 extends Phaser.Scene {
         this.jumpCheck2 = 0
     }
     update() {
+        // state machines
         this.cookFSM.step();
-        this.mustardFSM.step();
-        this.ketchupFSM.step();
-
-        //check attack on enemy
-        if (KillsWho == 1) {
-            if (swingBoolean == 1) {
-                this.mustard1.setVisible(false)
-                this.mustard1.setPosition(150,400)
-                score += 10;
-                swingBoolean == 0
-            }
+        if (this.ketchupStateTracker == 0) {
+            this.ketchupFSM.step();
         }
-        KillsWho = 0
+        if (this.mustardStateTracker == 0) {
+            this.mustardFSM.step();
+        }
 
         //check if cook falls between buildings
         //reset position
@@ -162,7 +168,7 @@ class Level_3 extends Phaser.Scene {
 
         //check if player runs out of lives
         if (lives <= 0) {
-            this.scene.sendToBack("UI");
+            this.scene.stop("UI");
             this.scene.start("gameOver");
         }
         
