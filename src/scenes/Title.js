@@ -14,7 +14,7 @@ class Title extends Phaser.Scene {
         this.characterPic = this.add.image(game_width / 2.7, game_height / 2.7, "titleCharacter").setOrigin(0,0).setScale(3);
 
         //add sound for button selection
-        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 20});
+        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: .5});
 
         //add title screen text
         this.add.text(game_width / 5.5, game_height / 3.5, 'BURGERBOSS', {

@@ -5,16 +5,31 @@ class Credits extends Phaser.Scene {
 
     create() {
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 20});
+        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 10});
 
         //add text for Credits
-        this.add.text(game_width / 4, game_height / 9, 'Idk', {
+        this.add.text(game_width / 3 + 20, game_height / 9, 'Credits', {
+            fontFamily: '"Press Start 2P", Papyrus',
+            fontSize: '8px',
+            color: 'white'
+        })
+        this.add.text(game_width / 6 + 20, game_height / 6, 'Assets: Jaren Kawai', {
+            fontFamily: '"Press Start 2P", Papyrus',
+            fontSize: '8px',
+            color: 'white'
+        })
+        this.add.text(game_width / 12, game_height / 4, 'Levels: Jaren Kawai & Jay Kumar', {
+            fontFamily: '"Press Start 2P", Papyrus',
+            fontSize: '8px',
+            color: 'white'
+        })
+        this.add.text(game_width / 4, game_height / 3, 'Sounds: mixkit.co', {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '8px',
             color: 'white'
         })
 
-        this.add.text(game_width / 7, game_height / 2, 'Press ESC to return to menu', {
+        this.add.text(game_width / 7, game_height - 30, 'Press ESC to return to menu', {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '8px'
         })

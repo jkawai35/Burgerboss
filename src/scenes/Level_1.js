@@ -7,7 +7,8 @@ class Level_1 extends Phaser.Scene {
         //launch UI scene and add to top
         this.scene.launch('UI');
         this.scene.bringToTop('UI');
-        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 20});
+        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 10});
+        this.coin = this.sound.add('sfx_coin', {loop: false, volume: 10});
 
         this.tomatoCount = 0;
 
@@ -101,6 +102,7 @@ class Level_1 extends Phaser.Scene {
             this.tomato1.destroy();
             this.tomatoCount += 1;
             score += 10;
+            this.coin.play('');
         })
 
         //add second tomato
@@ -109,6 +111,7 @@ class Level_1 extends Phaser.Scene {
             this.tomato2.destroy();
             this.tomatoCount += 1;
             score += 10;
+            this.coin.play('');
         })
         //add third tomato
         this.tomato3 = this.physics.add.sprite(1175, game_height - 80, "tomato");
@@ -116,6 +119,7 @@ class Level_1 extends Phaser.Scene {
             this.tomato3.destroy();
             this.tomatoCount += 1;
             score += 10;
+            this.coin.play('');
         })
 
         //add fourth tomato
@@ -124,6 +128,7 @@ class Level_1 extends Phaser.Scene {
             this.tomato4.destroy();
             this.tomatoCount += 1;
             score += 10;
+            this.coin.play('');
         })
 
         //add victory collider

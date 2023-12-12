@@ -4,6 +4,7 @@
 // Time to complete:
 // Sources used:
 // Running scenes in parallel: https://phaser.discourse.group/t/problem-with-two-parallel-scenes/7578
+// Select sound: mixkit.co
 
 let config = {
     type: Phaser.AUTO,

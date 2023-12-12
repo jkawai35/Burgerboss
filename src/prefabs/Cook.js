@@ -13,7 +13,7 @@ class Cook extends Phaser.Physics.Arcade.Sprite{
 
         this.cookSword = scene.physics.add.sprite(40, 80, "");
         this.cookSword.body.setSize(20, 10);
-        this.cookSword.setVisible(false)
+        this.cookSword.setVisible(false);
 
         //create state machine
         scene.cookFSM = new StateMachine('idle', {
