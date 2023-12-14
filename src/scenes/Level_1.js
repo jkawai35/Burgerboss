@@ -31,7 +31,7 @@ class Level_1 extends Phaser.Scene {
         this.ketchup1.body.setSize(15, 30);
 
         // Tutorial tip for when player first encounters mustard enemy
-        this.doubleJumpTip = this.add.text(280, game_width / 2 - 50, "Press SPACE to attack!\n\n(You can attack while moving)", {
+        this.doubleJumpTip = this.add.text(200, game_width / 2 - 85, "    Press SPACE to attack!\n\n(You can attack while moving)", {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '7px'
         });

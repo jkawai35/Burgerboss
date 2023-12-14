@@ -107,10 +107,12 @@ class Level_2 extends Phaser.Scene {
 
             // make the orb 'disappear'
             this.doubleJump.setVisible(false)
-            this.doubleJump.setPosition(300, game_height / 2 - 100)
+            this.doubleJump.setPosition(1800, game_height / 1.5)
+            this.cook.setTint(0x004dff)
 
             // after a short delay, grant an additional mid-air jump
             this.time.delayedCall(350, () => {
+                this.cook.setTint(0xffffff)
                 jumpBoolean = 1
             }, null, this);
 
@@ -126,8 +128,10 @@ class Level_2 extends Phaser.Scene {
         this.doubleJump2.body.setImmovable(true);
         this.physics.add.overlap(this.cook, this.doubleJump2, (cook, doubleJump2) => {
             this.doubleJump2.setVisible(false)
-            this.doubleJump2.setPosition(300, game_height / 2 - 100)
+            this.doubleJump2.setPosition(1800, game_height / 1.5)
+            this.cook.setTint(0x004dff)
             this.time.delayedCall(400, () => {
+                this.cook.setTint(0xffffff)
                 jumpBoolean = 1
             }, null, this);
             this.time.delayedCall(1500, () => {
@@ -141,8 +145,10 @@ class Level_2 extends Phaser.Scene {
         this.doubleJump3.body.setImmovable(true);
         this.physics.add.overlap(this.cook, this.doubleJump3, (cook, doubleJump3) => {
             this.doubleJump3.setVisible(false)
-            this.doubleJump3.setPosition(300, game_height / 2 - 100)
+            this.doubleJump3.setPosition(1800, game_height / 1.5)
+            this.cook.setTint(0x004dff)
             this.time.delayedCall(400, () => {
+                this.cook.setTint(0xffffff)
                 jumpBoolean = 1
             }, null, this);
             this.time.delayedCall(1500, () => {
