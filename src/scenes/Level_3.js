@@ -221,7 +221,7 @@ class Level_3 extends Phaser.Scene {
         //check if cook falls between buildings
         //reset position
         if (this.cook.y > 210) {
-            this.cook.setPosition(40, 80)
+            this.cook.setPosition(40, 140)
             jumpBoost = 0
             this.cook.setTint(0xffffff);
             this.jumpPowerup.setPosition(1580, game_height / 1.5 - 10);
