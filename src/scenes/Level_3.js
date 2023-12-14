@@ -224,7 +224,7 @@ class Level_3 extends Phaser.Scene {
             this.cook.setPosition(40, 140)
             jumpBoost = 0
             this.cook.setTint(0xffffff);
-            this.jumpPowerup.setPosition(1580, game_height / 1.5 - 10);
+            this.jumpPowerup.setPosition(1540, game_height / 1.5 - 5);
             totalMoved = 0;
             lives -= 1;
         } 
