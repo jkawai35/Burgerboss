@@ -15,6 +15,10 @@ class Cook extends Phaser.Physics.Arcade.Sprite{
         this.cookSword.body.setSize(20, 10);
         this.cookSword.setVisible(false);
 
+        this.jump = scene.sound.add('sfx_jump', {loop: false, volume: 4});
+        this.sword = scene.sound.add('sfx_sword', {loop: false, volume: 6});
+
+
         //create state machine
         scene.cookFSM = new StateMachine('idle', {
             idle: new IdleState(),
@@ -125,6 +129,9 @@ class MoveState extends State {
 }
 
 class JumpState extends State {
+    enter (scene, cook) {
+        scene.jump.play('')
+    }
     execute(scene, cook) {
         // console.log("JUMP STATE")
         // use destructuring to make a local copy of the keyboard object
@@ -154,13 +161,14 @@ class JumpState extends State {
         else {
             moveDirection.x = 0
         }
-        cook.setVelocity(cook.cookVelocity * moveDirection.x, 175 * moveDirection.y);
+        cook.setVelocity(cook.cookVelocity * moveDirection.x, (175+jumpBoost) * moveDirection.y);
         cook.anims.play(`jump-${cook.direction}`);
     }
 }
 
 class SwingState extends State {
     enter(scene, cook) {
+        scene.sword.play('')
         const { left, right, up, space} = scene.keys;
         swingBoolean = 1
         cook.anims.play(`swing-${cook.direction}`);

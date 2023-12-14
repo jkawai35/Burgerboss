@@ -60,6 +60,7 @@ let buildings;
 let enemies;
 
 let jumpBoolean = 1
+let jumpBoost = 0
 let swingBoolean = 0
 let collisionBoolean = 0
 

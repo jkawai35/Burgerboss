@@ -8,7 +8,7 @@ class Credits extends Phaser.Scene {
         this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 10});
 
         //add text for Credits
-        this.add.text(game_width / 3 + 20, game_height / 9, 'Credits', {
+        this.add.text(game_width / 3 + 20, game_height / 12, 'Credits', {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '8px',
             color: 'white'
@@ -26,6 +26,11 @@ class Credits extends Phaser.Scene {
         this.add.text(game_width / 4, game_height / 3, 'Sounds: mixkit.co', {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '8px',
+            color: 'white'
+        })
+        this.add.text(game_width / 36, game_height / 2.4, 'Background Music: Wizard101 Disco Khan Theme', {
+            fontFamily: '"Press Start 2P", Papyrus',
+            fontSize: '7px',
             color: 'white'
         })
 

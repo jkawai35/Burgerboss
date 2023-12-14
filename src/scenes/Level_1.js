@@ -9,6 +9,10 @@ class Level_1 extends Phaser.Scene {
         this.scene.bringToTop('UI');
         this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 10});
         this.coin = this.sound.add('sfx_coin', {loop: false, volume: 10});
+        this.jump = this.sound.add('sfx_jump', {loop: false, volume: 4});
+        this.sword = this.sound.add('sfx_sword', {loop: false, volume: 6});
+
+
 
         this.tomatoCount = 0;
 
@@ -25,6 +29,12 @@ class Level_1 extends Phaser.Scene {
         //create ketchup1
         this.ketchup1 = new Ketchup(this, 1175, game_width / 4, 'ketchup', 0);
         this.ketchup1.body.setSize(15, 30);
+
+        // Tutorial tip for when player first encounters mustard enemy
+        this.doubleJumpTip = this.add.text(280, game_width / 2 - 50, "Press SPACE to attack!\n\n(You can attack while moving)", {
+            fontFamily: '"Press Start 2P", Papyrus',
+            fontSize: '7px'
+        });
 
         //define keys
         this.keys = this.input.keyboard.createCursorKeys();
@@ -97,8 +107,8 @@ class Level_1 extends Phaser.Scene {
 
 
         //add first tomato
-        this.tomato1 = this.physics.add.sprite(400, game_height / 2, "tomato");
-        this.physics.add.collider(this.cook, this.tomato1, (cook, tomato1) => {
+        this.tomato1 = this.physics.add.sprite(175, game_height / 2 - 70, "tomato");
+        this.physics.add.overlap(this.cook, this.tomato1, (cook, tomato1) => {
             this.tomato1.destroy();
             this.tomatoCount += 1;
             score += 10;
@@ -107,7 +117,7 @@ class Level_1 extends Phaser.Scene {
 
         //add second tomato
         this.tomato2 = this.physics.add.sprite(630, game_height / 3, "tomato");
-        this.physics.add.collider(this.cook, this.tomato2, (cook, tomato2) => {
+        this.physics.add.overlap(this.cook, this.tomato2, (cook, tomato2) => {
             this.tomato2.destroy();
             this.tomatoCount += 1;
             score += 10;
@@ -115,7 +125,7 @@ class Level_1 extends Phaser.Scene {
         })
         //add third tomato
         this.tomato3 = this.physics.add.sprite(1175, game_height - 80, "tomato");
-        this.physics.add.collider(this.cook, this.tomato3, (cook, tomato3) => {
+        this.physics.add.overlap(this.cook, this.tomato3, (cook, tomato3) => {
             this.tomato3.destroy();
             this.tomatoCount += 1;
             score += 10;
@@ -124,7 +134,7 @@ class Level_1 extends Phaser.Scene {
 
         //add fourth tomato
         this.tomato4 = this.physics.add.sprite(1325, game_height / 3, "tomato");
-        this.physics.add.collider(this.cook, this.tomato4, (cook, tomato4) => {
+        this.physics.add.overlap(this.cook, this.tomato4, (cook, tomato4) => {
             this.tomato4.destroy();
             this.tomatoCount += 1;
             score += 10;
@@ -198,6 +208,7 @@ class Level_1 extends Phaser.Scene {
             lives = 3
             this.blingSound.play();
             this.scene.stop("UI");
+            totalMoved = 0
             this.scene.restart()
         }
 

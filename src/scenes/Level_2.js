@@ -9,6 +9,9 @@ class Level_2 extends Phaser.Scene {
         this.scene.bringToTop('UI');
         this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 10});
         this.coin = this.sound.add('sfx_coin', {loop: false, volume: 10});
+        this.jump = this.sound.add('sfx_jump', {loop: false, volume: 4});
+        this.sword = this.sound.add('sfx_sword', {loop: false, volume: 6});
+
 
 
         this.tomatoCount = 0;
@@ -100,7 +103,7 @@ class Level_2 extends Phaser.Scene {
         // when colliding with the double jump orb, it will 'disappear' temporarily, then re-appear in its previous location
         this.doubleJump = this.physics.add.sprite(160, game_height / 2 - 20, "tomato").setTint(0x4705ad).setScale(1.3);
         this.doubleJump.body.setImmovable(true);
-        this.physics.add.collider(this.cook, this.doubleJump, (cook, doubleJump) => {
+        this.physics.add.overlap(this.cook, this.doubleJump, (cook, doubleJump) => {
 
             // make the orb 'disappear'
             this.doubleJump.setVisible(false)
@@ -121,7 +124,7 @@ class Level_2 extends Phaser.Scene {
         //add double jump 2, same process as above
         this.doubleJump2 = this.physics.add.sprite(660, game_height / 2 - 30, "tomato").setTint(0x4705ad).setScale(1.3);
         this.doubleJump2.body.setImmovable(true);
-        this.physics.add.collider(this.cook, this.doubleJump2, (cook, doubleJump2) => {
+        this.physics.add.overlap(this.cook, this.doubleJump2, (cook, doubleJump2) => {
             this.doubleJump2.setVisible(false)
             this.doubleJump2.setPosition(300, game_height / 2 - 100)
             this.time.delayedCall(400, () => {
@@ -136,7 +139,7 @@ class Level_2 extends Phaser.Scene {
         //add double jump 3, same process as above
         this.doubleJump3 = this.physics.add.sprite(1300, game_height / 2 + 10, "tomato").setTint(0x4705ad).setScale(1.3);
         this.doubleJump3.body.setImmovable(true);
-        this.physics.add.collider(this.cook, this.doubleJump3, (cook, doubleJump3) => {
+        this.physics.add.overlap(this.cook, this.doubleJump3, (cook, doubleJump3) => {
             this.doubleJump3.setVisible(false)
             this.doubleJump3.setPosition(300, game_height / 2 - 100)
             this.time.delayedCall(400, () => {
@@ -150,7 +153,7 @@ class Level_2 extends Phaser.Scene {
 
         //add first tomato
         this.tomato1 = this.physics.add.sprite(140, game_height / 2 - 80, "tomato");
-        this.physics.add.collider(this.cook, this.tomato1, (cook, tomato1) => {
+        this.physics.add.overlap(this.cook, this.tomato1, (cook, tomato1) => {
             this.tomato1.destroy();
             this.tomatoCount += 1;
             score += 10;
@@ -159,7 +162,7 @@ class Level_2 extends Phaser.Scene {
 
         //add second tomato
         this.tomato2 = this.physics.add.sprite(750, game_height / 2, "tomato");
-        this.physics.add.collider(this.cook, this.tomato2, (cook, tomato2) => {
+        this.physics.add.overlap(this.cook, this.tomato2, (cook, tomato2) => {
             this.tomato2.destroy();
             this.tomatoCount += 1;
             score += 10;
@@ -167,7 +170,7 @@ class Level_2 extends Phaser.Scene {
         })
         //add third tomato
         this.tomato3 = this.physics.add.sprite(1175, game_height - 200, "tomato");
-        this.physics.add.collider(this.cook, this.tomato3, (cook, tomato3) => {
+        this.physics.add.overlap(this.cook, this.tomato3, (cook, tomato3) => {
             this.tomato3.destroy();
             this.tomatoCount += 1;
             score += 10;
@@ -176,7 +179,7 @@ class Level_2 extends Phaser.Scene {
 
         //add fourth tomato
         this.tomato4 = this.physics.add.sprite(1465, game_height / 3, "tomato");
-        this.physics.add.collider(this.cook, this.tomato4, (cook, tomato4) => {
+        this.physics.add.overlap(this.cook, this.tomato4, (cook, tomato4) => {
             this.tomato4.destroy();
             this.tomatoCount += 1;
             score += 10;
@@ -250,6 +253,7 @@ class Level_2 extends Phaser.Scene {
             lives = 3
             this.blingSound.play();
             this.scene.stop("UI");
+            totalMoved = 0
             this.scene.restart()
         }
 
