@@ -94,7 +94,7 @@ class Level_2 extends Phaser.Scene {
         enemies = this.add.group([this.mustard1, this.ketchup1]);
 
         // Tutorial tip for when player first encounters double jump collider
-        this.doubleJumpTip = this.add.text(100, game_height / 2 - 60, "This purple orb allows you " + "\n \n" + "to jump again in mid-air", {
+        this.doubleJumpTip = this.add.text(100, game_height / 2 - 60, "This purple onion allows you " + "\n \n" + "to jump again in mid-air", {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '7px'
         });

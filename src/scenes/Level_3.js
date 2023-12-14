@@ -256,6 +256,7 @@ class Level_3 extends Phaser.Scene {
         if (this.victoryIterate == 100) {
             this.victory.setTint(0x004dff)
             this.victory.setScale(2)
+            // Color change for cook if jump powerup is acquired
             if (jumpBoost == 50) {
                 this.cook.setTint(0x004dff)
             }
@@ -264,6 +265,7 @@ class Level_3 extends Phaser.Scene {
             this.victory.setTint(0x0fff00)
             this.victory.setScale(1.5)
             this.victoryIterate = 0
+            // Color change for cook if jump powerup is acquired
             if (jumpBoost == 50) {
                 this.cook.setTint(0x0fff00)
             }

@@ -28,9 +28,9 @@ class Credits extends Phaser.Scene {
             fontSize: '8px',
             color: 'white'
         })
-        this.add.text(game_width / 36, game_height / 2.4, 'Background Music: Wizard101 Empyrea Khan Dance', {
+        this.add.text(game_width / 208, game_height / 2.4, 'Background Music: Wizard101 Empyrea Khan Dance', {
             fontFamily: '"Press Start 2P", Papyrus',
-            fontSize: '7px',
+            fontSize: '6.91px',
             color: 'white'
         })
 
