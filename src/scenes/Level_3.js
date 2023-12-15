@@ -12,6 +12,7 @@ class Level_3 extends Phaser.Scene {
         this.jump = this.sound.add('sfx_jump', {loop: false, volume: 4});
         this.sword = this.sound.add('sfx_sword', {loop: false, volume: 6});
         this.alive = true;
+        globalAliveVar = 0
 
 
 
@@ -173,6 +174,7 @@ class Level_3 extends Phaser.Scene {
         this.victory = this.physics.add.sprite(35, game_height / 1.5 - 125, "tomato").setTint(0x0fff00).setScale(1.5).setImmovable(true);
         this.physics.add.collider(this.cook, this.victory, (cook, victory) => {
             this.alive = false;
+            globalAliveVar = 1
             levelTracker = 3
             totalScore += score
             jumpBoost = 0

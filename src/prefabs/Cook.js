@@ -32,13 +32,15 @@ class Cook extends Phaser.Physics.Arcade.Sprite{
 
 class IdleState extends State {
     enter(scene, cook) {
-        if (jumpBoolean == 0) {
-            cook.anims.play(`jump-${cook.direction}`);
-            cook.anims.stop();
-        }
-        else {
-            cook.anims.play(`walk-${cook.direction}`, true);
-            cook.anims.stop();
+        if (globalAliveVar == 0) { // globalAliveVar is used here to prevent a crash that would occasionally happen in the level scenes
+            if (jumpBoolean == 0) {
+                cook.anims.play(`jump-${cook.direction}`);
+                cook.anims.stop();
+            }
+            else {
+                cook.anims.play(`walk-${cook.direction}`, true);
+                cook.anims.stop();
+            }
         }
     }
 

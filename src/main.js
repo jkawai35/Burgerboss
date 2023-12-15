@@ -102,3 +102,5 @@ let levelTracker = 0
 let score = 0;
 let lives = 3;
 let totalScore = 0;
+
+let globalAliveVar = 0
