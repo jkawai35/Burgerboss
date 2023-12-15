@@ -155,22 +155,23 @@ class Level_1 extends Phaser.Scene {
             levelTracker = 1
             totalScore += score
 
-        this.rParticles = this.add.particles("blood");
-        this.cookBounds = cook.getBounds();
-        this.confetti = this.rParticles.createEmitter({
+        let rParticles = this.add.particles("blood");
+        let confetti = rParticles.createEmitter({
             alpha: {start: 1, end: 0},
             scale: {start: .75, end: 0},
             speed: {min: -150, max: 150},
             lifespan: 4000,
-            emitZone: {
-                type: "edge",
-                source: new Phaser.Geom.Rectangle(this.cookBounds.x, this.cookBounds.y, this.cookBounds.width, this.cookBounds.height),
-                quantity: 500
-            },
             blendMode: "ADD"
         });
 
-        this.confetti.explode(100);
+        let cookBounds = cook.getBounds();
+        confetti.setEmitZone({
+            source: new Phaser.Geom.Rectangle(cookBounds.x, cookBounds.y, cookBounds.width, cookBounds.height),
+            type: "edge",
+            quantity: 500
+        });
+
+        confetti.explode(100);
 
         cook.destroy();
 
