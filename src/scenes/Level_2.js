@@ -193,6 +193,12 @@ class Level_2 extends Phaser.Scene {
             this.coin.play('');
         })
 
+        // Tutorial tip to indicate the endgoal/victory tomato
+        this.doubleJumpTip = this.add.text(1670, game_height / 2 + 18, " ENDGOAL", {
+            fontFamily: '"Press Start 2P", Papyrus',
+            fontSize: '7px'
+        });
+
         //add victory collider
         this.victory = this.physics.add.sprite(1700, game_height / 1.5, "tomato").setTint(0x0fff00).setScale(1.5).setImmovable(true);
         this.physics.add.collider(this.cook, this.victory, (cook, victory) => {

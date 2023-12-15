@@ -28,7 +28,7 @@ class Level_3 extends Phaser.Scene {
         this.mustard1.body.setSize(15, 30);
 
         //create ketchup1
-        this.ketchup1 = new Ketchup(this, 1500, game_width / 4, 'ketchup', 0);
+        this.ketchup1 = new Ketchup(this, 1350, game_width / 4 - 50, 'ketchup', 0);
         this.ketchup1.body.setSize(15, 30);
 
         //define keys
@@ -159,7 +159,7 @@ class Level_3 extends Phaser.Scene {
         this.physics.add.collider(this.cook, this.victoryBarrier2)
 
         // add jump powerup, this allows the player to reach the victory tomato and beat the level
-        this.jumpPowerup = this.physics.add.sprite(1540, game_height / 1.5 - 5, "tomato").setTint(0x5422c9).setScale(1.5);
+        this.jumpPowerup = this.physics.add.sprite(1515, game_height / 1.5 - 5, "tomato").setTint(0x5422c9).setScale(1.5);
         this.jumpPowerup.body.setImmovable(true);
         this.physics.add.overlap(this.cook, this.jumpPowerup, (cook, jumpPowerup) => {
             jumpBoost = 50
@@ -212,9 +212,10 @@ class Level_3 extends Phaser.Scene {
         });
 
         // Tutorial tip to indicate the jump powerup
-        this.doubleJumpTip = this.add.text(1470, game_height / 1.5 - 70, "    JUMP POWERUP\n\n\n     Use it to\n\nreach the ENDGOAL!", {
+        this.doubleJumpTip2 = this.add.text(1420, game_height / 1.5 - 135, "     JUMP POWERUP\n\n    Increases your\n\n      jump height" + 
+        "  \n\n\n  Use it to reach the\n\n        ENDGOAL\n\n     at the START\n\n     of the level!", {
             fontFamily: '"Press Start 2P", Papyrus',
-            fontSize: '7px'
+            fontSize: '8px'
         });
 
 
@@ -263,11 +264,12 @@ class Level_3 extends Phaser.Scene {
             this.cook.setPosition(40, 140)
             jumpBoost = 0
             this.cook.setTint(0xffffff);
-            this.jumpPowerup.setPosition(1540, game_height / 1.5 - 5);
+            this.jumpPowerup.setPosition(1515, game_height / 1.5 - 5);
             this.victoryBarrier.setPosition(35, game_height / 1.5 - 95)
             this.victoryBarrier2.setPosition(90, game_height / 1.5 - 125)
             totalMoved = 0;
             this.mustard1.setPosition(300, game_width / 2 - 200)
+            this.ketchup1.setPosition(1350, game_width / 4 - 50)
             lives -= 1;
         } 
         if (Phaser.Input.Keyboard.JustDown(keyESC)){
