@@ -21,10 +21,6 @@ class Instructions extends Phaser.Scene {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '8px'
         })
-        this.add.text(game_width / 11, game_height / 3, 'Collect all tomatoes in each level', {
-            fontFamily: '"Press Start 2P", Papyrus',
-            fontSize: '8px'
-        })
         this.add.text(game_width / 7, game_height / 2, 'Press ESC to return to menu', {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '8px'
