@@ -21,6 +21,8 @@ class Load extends Phaser.Scene {
         this.load.image("greenBuilding", "./assets/GreenBuilding.png");
         this.load.image("blueBuilding", "./assets/BlueBuildig.png");
         this.load.image("tomato", "./assets/tomato.png");
+        this.load.image("blood", "./assets/blood.png");
+
 
         //load spritesheets for characters
         this.load.spritesheet('mustard', './assets/mustard.png', {

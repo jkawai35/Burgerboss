@@ -11,6 +11,7 @@ class Level_2 extends Phaser.Scene {
         this.coin = this.sound.add('sfx_coin', {loop: false, volume: 10});
         this.jump = this.sound.add('sfx_jump', {loop: false, volume: 4});
         this.sword = this.sound.add('sfx_sword', {loop: false, volume: 6});
+        this.alive = true;
 
 
 
@@ -101,7 +102,7 @@ class Level_2 extends Phaser.Scene {
     
         //add double jump collider, this resets the jumpBoolean to 1 while mid-air, allowing for a second mid-air jump
         // when colliding with the double jump orb, it will 'disappear' temporarily, then re-appear in its previous location
-        this.doubleJump = this.physics.add.sprite(160, game_height / 2 - 20, "tomato").setTint(0x4705ad).setScale(1.3);
+        this.doubleJump = this.physics.add.sprite(160, game_height / 2 - 20, "tomato").setTint(0x5422c9).setScale(1.3);
         this.doubleJump.body.setImmovable(true);
         this.physics.add.overlap(this.cook, this.doubleJump, (cook, doubleJump) => {
 
@@ -124,7 +125,7 @@ class Level_2 extends Phaser.Scene {
         })
 
         //add double jump 2, same process as above
-        this.doubleJump2 = this.physics.add.sprite(660, game_height / 2 - 30, "tomato").setTint(0x4705ad).setScale(1.3);
+        this.doubleJump2 = this.physics.add.sprite(660, game_height / 2 - 30, "tomato").setTint(0x5422c9).setScale(1.3);
         this.doubleJump2.body.setImmovable(true);
         this.physics.add.overlap(this.cook, this.doubleJump2, (cook, doubleJump2) => {
             this.doubleJump2.setVisible(false)
@@ -141,7 +142,7 @@ class Level_2 extends Phaser.Scene {
         })
 
         //add double jump 3, same process as above
-        this.doubleJump3 = this.physics.add.sprite(1300, game_height / 2 + 10, "tomato").setTint(0x4705ad).setScale(1.3);
+        this.doubleJump3 = this.physics.add.sprite(1300, game_height / 2 + 10, "tomato").setTint(0x5422c9).setScale(1.3);
         this.doubleJump3.body.setImmovable(true);
         this.physics.add.overlap(this.cook, this.doubleJump3, (cook, doubleJump3) => {
             this.doubleJump3.setVisible(false)
@@ -193,12 +194,35 @@ class Level_2 extends Phaser.Scene {
         })
 
         //add victory collider
-        this.victory = this.physics.add.sprite(1700, game_height / 1.5, "tomato").setTint(0x0fff00).setScale(1.5);
+        this.victory = this.physics.add.sprite(1700, game_height / 1.5, "tomato").setTint(0x0fff00).setScale(1.5).setImmovable(true);
         this.physics.add.collider(this.cook, this.victory, (cook, victory) => {
+            this.alive = false;
             levelTracker = 2
             totalScore += score
+            let rParticles = this.add.particles("blood");
+            let confetti = rParticles.createEmitter({
+            alpha: {start: 1, end: 0},
+            scale: {start: .75, end: 0},
+            speed: {min: -150, max: 150},
+            lifespan: 4000,
+            blendMode: "ADD"
+        });
+
+        let cookBounds = cook.getBounds();
+        confetti.setEmitZone({
+            source: new Phaser.Geom.Rectangle(cookBounds.x, cookBounds.y, cookBounds.width, cookBounds.height),
+            type: "edge",
+            quantity: 500
+        });
+
+        confetti.explode(100);
+
+        cook.destroy();
+
+        this.time.delayedCall(1000, () => {
             this.scene.stop("UI");
             this.scene.start("win");
+        })
         })
         // add variable to keep track of color changes to victory collider (these changes are done in update())
         this.victoryIterate = 0
@@ -233,7 +257,9 @@ class Level_2 extends Phaser.Scene {
     }
     update() {
        // state machines
-       this.cookFSM.step();
+       if (this.alive) {
+        this.cookFSM.step();
+       }
        if (this.ketchupStateTracker == 0) {
            this.ketchupFSM.step();
        }
@@ -280,16 +306,16 @@ class Level_2 extends Phaser.Scene {
         }
 
         // This code below prevents jumping from the sides of walls
-        if (this.cook.body.velocity.y == 0 && this.jumpCheck == 1 && this.jumpCheck2 == 1 && collisionBoolean == 1) {
+        if (this.alive && this.cook.body.velocity.y == 0 && this.jumpCheck == 1 && this.jumpCheck2 == 1 && collisionBoolean == 1) {
             jumpBoolean = 1
         }
-        if (this.cook.body.velocity.y == 0 && this.jumpCheck == 1) {
+        if (this.alive && this.cook.body.velocity.y == 0 && this.jumpCheck == 1) {
             this.jumpCheck2 = 1
         }
         else {
             this.jumpCheck2 = 0
         }
-        if (this.cook.body.velocity.y == 0) {
+        if (this.alive && this.cook.body.velocity.y == 0) {
             this.jumpCheck = 1
         }
         else {

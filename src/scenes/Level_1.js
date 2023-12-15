@@ -11,6 +11,7 @@ class Level_1 extends Phaser.Scene {
         this.coin = this.sound.add('sfx_coin', {loop: false, volume: 10});
         this.jump = this.sound.add('sfx_jump', {loop: false, volume: 4});
         this.sword = this.sound.add('sfx_sword', {loop: false, volume: 6});
+        this.alive = true;
 
 
 
@@ -142,12 +143,36 @@ class Level_1 extends Phaser.Scene {
         })
 
         //add victory collider
-        this.victory = this.physics.add.sprite(1450, game_height / 1.5, "tomato").setTint(0x0fff00).setScale(1.5);
+        this.victory = this.physics.add.sprite(1450, game_height / 1.5, "tomato").setTint(0x0fff00).setScale(1.5).setImmovable(true);
         this.physics.add.collider(this.cook, this.victory, (cook, victory) => {
+            this.alive = false;
             levelTracker = 1
             totalScore += score
+
+        let rParticles = this.add.particles("blood");
+        let confetti = rParticles.createEmitter({
+            alpha: {start: 1, end: 0},
+            scale: {start: .75, end: 0},
+            speed: {min: -150, max: 150},
+            lifespan: 4000,
+            blendMode: "ADD"
+        });
+
+        let cookBounds = cook.getBounds();
+        confetti.setEmitZone({
+            source: new Phaser.Geom.Rectangle(cookBounds.x, cookBounds.y, cookBounds.width, cookBounds.height),
+            type: "edge",
+            quantity: 500
+        });
+
+        confetti.explode(100);
+
+        cook.destroy();
+
+        this.time.delayedCall(1000, () => {
             this.scene.stop("UI");
             this.scene.start("win");
+        })
         })
         // add variable to keep track of color changes to victory collider (these changes are done in update())
         this.victoryIterate = 0
@@ -182,7 +207,11 @@ class Level_1 extends Phaser.Scene {
     }
     update() {
         // state machines
-        this.cookFSM.step();
+        if (this.alive)
+        {
+            this.cookFSM.step();
+
+        }
         if (this.ketchupStateTracker == 0) {
             this.ketchupFSM.step();
         }
@@ -229,16 +258,16 @@ class Level_1 extends Phaser.Scene {
         }
 
         // This code below prevents jumping from the sides of walls
-        if (this.cook.body.velocity.y == 0 && this.jumpCheck == 1 && this.jumpCheck2 == 1 && collisionBoolean == 1) {
+        if (this.alive && this.cook.body.velocity.y == 0 && this.jumpCheck == 1 && this.jumpCheck2 == 1 && collisionBoolean == 1) {
             jumpBoolean = 1
         }
-        if (this.cook.body.velocity.y == 0 && this.jumpCheck == 1) {
+        if (this.alive && this.cook.body.velocity.y == 0 && this.jumpCheck == 1) {
             this.jumpCheck2 = 1
         }
         else {
             this.jumpCheck2 = 0
         }
-        if (this.cook.body.velocity.y == 0) {
+        if (this.alive && this.cook.body.velocity.y == 0) {
             this.jumpCheck = 1
         }
         else {
