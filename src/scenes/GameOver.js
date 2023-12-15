@@ -16,7 +16,7 @@ class GameOver extends Phaser.Scene {
             fontFamily: '"Press Start 2P", Papyrus',
             fontSize: '12px'
         })
-        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 20});
+        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 10});
 
     }
     update() {

@@ -5,7 +5,7 @@ class Win extends Phaser.Scene {
 
     create() {
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 20});
+        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 10});
 
 
         //add text for screen

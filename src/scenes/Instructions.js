@@ -5,7 +5,7 @@ class Instructions extends Phaser.Scene {
 
     create() {
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 20});
+        this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 10});
 
         //add text for instructions
         this.add.text(game_width / 4, game_height / 9, 'Use ← and → to move', {
