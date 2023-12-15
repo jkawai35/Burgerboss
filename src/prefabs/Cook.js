@@ -133,7 +133,6 @@ class JumpState extends State {
         scene.jump.play('')
     }
     execute(scene, cook) {
-        // console.log("JUMP STATE")
         // use destructuring to make a local copy of the keyboard object
         const { left, right, up, space} = scene.keys;
 
@@ -147,6 +146,7 @@ class JumpState extends State {
             this.stateMachine.transition('hurt')
         }
 
+        // Stay in jump state for a split second to keep upward velocity going, and then switch to idle to allow gravity to slowly pull the player back down
         scene.time.delayedCall(250, () => {
             this.stateMachine.transition('idle')
         }, null, scene);

@@ -7,7 +7,6 @@ class Win extends Phaser.Scene {
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         this.blingSound = this.sound.add('sfx_select', {loop: false, volume: 20});
 
-        // this.background = this.add.tileSprite(0,0,640,480, "background").setOrigin(0,0);
 
         //add text for screen
         this.add.text(game_width / 7, game_height / 5, 'YOU WIN', {
