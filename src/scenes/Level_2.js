@@ -68,8 +68,8 @@ class Level_2 extends Phaser.Scene {
         this.building6.body.setImmovable(true);
 
         //set building7
-        this.building7 = this.physics.add.sprite(1050, game_height - 60, "brownBuilding")
-        this.building7.setScale(1.2);
+        this.building7 = this.physics.add.sprite(1045, game_height - 60, "brownBuilding")
+        this.building7.setScale(1.5);
         this.building7.body.setImmovable(true);
 
         //set building8
@@ -272,6 +272,7 @@ class Level_2 extends Phaser.Scene {
         if (this.cook.y > 210) {
             this.cook.setPosition(100, 80)
             totalMoved = 0;
+            this.ketchup1.setPosition(1050, game_width / 4)
             lives -= 1;
         } 
         // hotkeys for scene switching/restarting

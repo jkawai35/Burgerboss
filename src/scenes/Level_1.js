@@ -224,6 +224,7 @@ class Level_1 extends Phaser.Scene {
         if (this.cook.y > 210) {
             this.cook.setPosition(40, 80)
             totalMoved = 0;
+            this.ketchup1.setPosition(1175, game_width / 4)
             lives -= 1;
         }
         // hotkeys for scene switching/restarting

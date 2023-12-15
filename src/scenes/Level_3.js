@@ -148,14 +148,27 @@ class Level_3 extends Phaser.Scene {
             this.coin.play('');
         })
 
-        //add jump powerup
+        // Barrier around the victory tomato to prevent "cheesing" the level, barrier disappears once the jump power-up is collected and should re-appear if you die and lose the jump power-up
+        this.victoryBarrier = this.physics.add.sprite(35, game_height / 1.5 - 95).setTint(0x5422c9).setScale(3, 0.25);
+        this.victoryBarrier.body.setImmovable(true);
+        this.physics.add.collider(this.cook, this.victoryBarrier)
+
+        // second barrier around victory tomaro, same rules as above
+        this.victoryBarrier2 = this.physics.add.sprite(90, game_height / 1.5 - 125).setTint(0x5422c9).setScale(0.25, 2);
+        this.victoryBarrier2.body.setImmovable(true);
+        this.physics.add.collider(this.cook, this.victoryBarrier2)
+
+        // add jump powerup, this allows the player to reach the victory tomato and beat the level
         this.jumpPowerup = this.physics.add.sprite(1540, game_height / 1.5 - 5, "tomato").setTint(0x5422c9).setScale(1.5);
         this.jumpPowerup.body.setImmovable(true);
         this.physics.add.overlap(this.cook, this.jumpPowerup, (cook, jumpPowerup) => {
             jumpBoost = 50
             this.jumpPowerup.setPosition(1900, game_height - 10);
+            this.victoryBarrier.setPosition(100, -50)
+            this.victoryBarrier2.setPosition(200, -50)
             this.blingSound.play('')
         })
+
         //add victory collider
         this.victory = this.physics.add.sprite(35, game_height / 1.5 - 125, "tomato").setTint(0x0fff00).setScale(1.5).setImmovable(true);
         this.physics.add.collider(this.cook, this.victory, (cook, victory) => {
@@ -251,7 +264,10 @@ class Level_3 extends Phaser.Scene {
             jumpBoost = 0
             this.cook.setTint(0xffffff);
             this.jumpPowerup.setPosition(1540, game_height / 1.5 - 5);
+            this.victoryBarrier.setPosition(35, game_height / 1.5 - 95)
+            this.victoryBarrier2.setPosition(90, game_height / 1.5 - 125)
             totalMoved = 0;
+            this.mustard1.setPosition(300, game_width / 2 - 200)
             lives -= 1;
         } 
         if (Phaser.Input.Keyboard.JustDown(keyESC)){
